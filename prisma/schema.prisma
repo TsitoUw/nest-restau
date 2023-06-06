@@ -77,7 +77,7 @@ model OrderItems {
   dish     Dishes @relation(fields: [dishesId], references: [id])
   dishesId String
 
-  Orders   Orders? @relation(fields: [ordersId], references: [id])
+  orders   Orders? @relation(fields: [ordersId], references: [id])
   ordersId String?
 
   createdAt DateTime  @default(now())
