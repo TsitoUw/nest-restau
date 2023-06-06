@@ -27,6 +27,7 @@ lerna-debug.log*
 .settings/
 *.sublime-workspace
 
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
@@ -40,3 +41,4 @@ request.rest
 # the migration_lock file should be included but we dont need the migrations to be pushed
 /prisma/migrations/*
 !/prisma/migrations/migration_lock.toml
+.env
