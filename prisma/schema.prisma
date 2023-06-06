@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Roles {
+  USER
+  ADMIN
+}
+
+model Users {
+  id        String    @id @default(uuid())
+  name      String
+  password  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@index([id, name])
+}
+
+model Menus {
+  id        String    @id @default(uuid())
+  name      String
+  dishes    Dishes[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@index([id, name])
+}
+
+model Categories {
+  id     String   @id @default(uuid())
+  name   String
+  dishes Dishes[]
+}
+
+model Dishes {
+  id         String        @id @default(uuid())
+  name       String
+  ingedients Ingredients[]
+  price Float
+
+  menus        Menus?      @relation(fields: [menusId], references: [id])
+  menusId      String?
+  categories   Categories? @relation(fields: [categoriesId], references: [id])
+  categoriesId String?
+
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime?    @updatedAt
+  OrderItems OrderItems[]
+
+  @@index([id, name])
+}
+
+model Ingredients {
+  id        String    @id @default(uuid())
+  name      String
+  dishs     Dishes[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@index([id, name])
+}
+
+model OrderItems {
+  id        String    @id @default(uuid())
+  quantity  Int
+
+  dish      Dishes    @relation(fields: [dishesId], references: [id])
+  dishesId  String
+  
+  Orders    Orders?   @relation(fields: [ordersId], references: [id])
+  ordersId  String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model Orders {
+  id     String       @id @default(uuid())
+  date   DateTime     @default(now())
+
+  items  OrderItems[]
+
+  bill   Bill?        @relation(fields: [billId], references: [id])
+  billId String?
+
+  @@index([date])
+}
+
+model Bill {
+  id     String   @id @default(uuid())
+  date   DateTime @default(now())
+  orders Orders[]
+
+  @@index([date])
+}
