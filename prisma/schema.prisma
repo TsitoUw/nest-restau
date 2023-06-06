@@ -19,6 +19,7 @@ model Users {
   id        String    @id @default(uuid())
   name      String
   password  String?
+  role      Roles @default(USER)
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
@@ -92,7 +93,7 @@ model Orders {
   bill   Bill?   @relation(fields: [billId], references: [id])
   billId String?
 
-  status        OrderStatus @relation(fields: [orderStatusId], references: [id])
+  status        OrderStatuses
   orderStatusId String
 
   @@index([date])
@@ -106,8 +107,26 @@ model Bill {
   @@index([date])
 }
 
-model OrderStatus {
-  id     String   @id @default(uuid())
-  name   String
-  Orders Orders[]
+enum OrderStatuses {
+  PENDING
+  PROCESSING
+  READY_FOR_PICKUP
+  IN_DELIVERY
+  DELIVERED
+  CANCELLED
+  REFUNDED
+  COMPLETED
+  ONHOLD
+  IN_PROGRESS
 }
+
+// Pending: The order has been received but has not been processed yet.
+// Processing: The restaurant is preparing the order.
+// Ready for Pickup: The order is ready for the customer to pick up.
+// In Delivery: The order is on its way to be delivered to the customer.
+// Delivered: The order has been successfully delivered to the customer.
+// Cancelled: The customer or the restaurant has cancelled the order.
+// Refunded: The customer has been refunded for a cancelled or incorrect order.
+// Completed: The order has been successfully fulfilled and completed.
+// On Hold: The order is temporarily on hold due to some issues or special requests.
+// In-Progress: The order is currently being prepared or cooked.
