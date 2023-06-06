@@ -45,7 +45,7 @@ model Dishes {
   id         String        @id @default(uuid())
   name       String
   ingedients Ingredients[]
-  price Float
+  price      Float
 
   menus        Menus?      @relation(fields: [menusId], references: [id])
   menusId      String?
@@ -70,27 +70,30 @@ model Ingredients {
 }
 
 model OrderItems {
-  id        String    @id @default(uuid())
-  quantity  Int
+  id       String @id @default(uuid())
+  quantity Int
 
-  dish      Dishes    @relation(fields: [dishesId], references: [id])
-  dishesId  String
-  
-  Orders    Orders?   @relation(fields: [ordersId], references: [id])
-  ordersId  String?
+  dish     Dishes @relation(fields: [dishesId], references: [id])
+  dishesId String
+
+  Orders   Orders? @relation(fields: [ordersId], references: [id])
+  ordersId String?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 }
 
 model Orders {
-  id     String       @id @default(uuid())
-  date   DateTime     @default(now())
+  id   String   @id @default(uuid())
+  date DateTime @default(now())
 
-  items  OrderItems[]
+  items OrderItems[]
 
-  bill   Bill?        @relation(fields: [billId], references: [id])
+  bill   Bill?   @relation(fields: [billId], references: [id])
   billId String?
+
+  status        OrderStatus @relation(fields: [orderStatusId], references: [id])
+  orderStatusId String
 
   @@index([date])
 }
@@ -101,4 +104,10 @@ model Bill {
   orders Orders[]
 
   @@index([date])
+}
+
+model OrderStatus {
+  id     String   @id @default(uuid())
+  name   String
+  Orders Orders[]
 }
