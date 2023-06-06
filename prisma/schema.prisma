@@ -90,7 +90,7 @@ model Orders {
 
   items OrderItems[]
 
-  bill   Bill?   @relation(fields: [billId], references: [id])
+  bill   Bills?   @relation(fields: [billId], references: [id])
   billId String?
 
   status        OrderStatuses
@@ -99,7 +99,7 @@ model Orders {
   @@index([date])
 }
 
-model Bill {
+model Bills {
   id     String   @id @default(uuid())
   date   DateTime @default(now())
   orders Orders[]
