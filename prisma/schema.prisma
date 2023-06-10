@@ -19,7 +19,7 @@ model Users {
   id        String    @id @default(uuid())
   name      String
   password  String?
-  role      Roles @default(CLIENT)
+  role      Roles     @default(CLIENT)
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
@@ -36,34 +36,46 @@ model Menus {
   @@index([id, name])
 }
 
-model Categories {
+model DishCategories {
   id     String   @id @default(uuid())
-  name   String
+  name   String   @unique
   dishes Dishes[]
 }
 
 model Dishes {
-  id         String        @id @default(uuid())
-  name       String
-  ingedients Ingredients[]
-  price      Float
+  id          String        @id @default(uuid())
+  name        String        @unique
+  price       Float
+  ingredients Ingredients[]
 
-  menus        Menus?      @relation(fields: [menusId], references: [id])
-  menusId      String?
-  categories   Categories? @relation(fields: [categoriesId], references: [id])
-  categoriesId String?
+  menus      Menus?          @relation(fields: [menusId], references: [id])
+  menusId    String?
+  category   DishCategories? @relation(fields: [categoryId], references: [id])
+  categoryId String?
 
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime?    @updatedAt
   OrderItems OrderItems[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 
   @@index([id, name])
 }
 
+model IngredientCategories {
+  id   String @id @default(uuid())
+  name String @unique
+
+  ingredients Ingredients[]
+}
+
 model Ingredients {
-  id        String    @id @default(uuid())
-  name      String
-  dishs     Dishes[]
+  id     String   @id @default(uuid())
+  name   String   @unique
+  dishes Dishes[]
+
+  category   IngredientCategories? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
@@ -90,7 +102,7 @@ model Orders {
 
   items OrderItems[]
 
-  bill   Bills?   @relation(fields: [billId], references: [id])
+  bill   Bills?  @relation(fields: [billId], references: [id])
   billId String?
 
   status        OrderStatuses
