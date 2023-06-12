@@ -1,10 +1,12 @@
 import { OrderStatuses } from '@prisma/client';
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
-export class CreateOrderItemsDto {
+export class UpdateOrdersDto {
+  @IsOptional()
   @IsString()
   billId: string;
 
+  @IsOptional()
   @IsString()
   status: OrderStatuses;
 }

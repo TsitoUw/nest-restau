@@ -7,6 +7,9 @@ import { DishCategoriesModule } from './dish-categories/dish-categories.module';
 import { DishesModule } from './dishes/dishes.module';
 import { MenusModule } from './menus/menus.module';
 import { IngredientsModule } from './ingredients/ingredients.module';
+import { BillsModules } from './bills/bills.module';
+import { OrdersModule } from './orders/orders.module';
+import { OrderItemsModule } from './order-items/order-items.module';
 
 @Module({
   imports: [
@@ -16,7 +19,10 @@ import { IngredientsModule } from './ingredients/ingredients.module';
     IngredientCategoriesModule,
     DishesModule,
     DishCategoriesModule,
+    OrdersModule,
+    OrderItemsModule,
     MenusModule,
+    BillsModules,
   ],
   controllers: [AppController],
 })

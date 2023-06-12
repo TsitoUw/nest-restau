@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { OrderItemsService } from './order-items.service';
-import { CreateOrderItemsDto } from './dto/create-order-items.dto';
-import { UpdateOrderItemsDto } from './dto/update-order-items.dto';
+import { OrdersService } from './orders.service';
+import { CreateOrdersDto } from './dto/create-orders.dto';
+import { UpdateOrdersDto } from './dto/update-orders.dto';
 
-@Controller('ingredients')
-export class OrderItemsController {
-  constructor(private service: OrderItemsService) {}
+@Controller('orders')
+export class OrdersController {
+  constructor(private service: OrdersService) {}
 
   @Get()
   getAll() {
@@ -18,12 +18,12 @@ export class OrderItemsController {
   }
 
   @Post()
-  create(@Body() data: CreateOrderItemsDto) {
+  create(@Body() data: CreateOrdersDto) {
     return this.service.create(data);
   }
 
   @Patch(':id')
-  update(@Param(':id') id: string, @Body() data: UpdateOrderItemsDto) {
+  update(@Param(':id') id: string, @Body() data: UpdateOrdersDto) {
     return this.service.update(id, data);
   }
 }

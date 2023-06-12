@@ -16,21 +16,23 @@ enum Roles {
 }
 
 model Users {
-  id        String    @id @default(uuid())
-  name      String
-  password  String?
-  role      Roles     @default(CLIENT)
+  id       String  @id @default(uuid())
+  name     String
+  password String?
+  role     Roles   @default(CLIENT)
+  bills    Bills[]
+
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  bills     Bills[]
 
   @@index([id, name])
 }
 
 model Menus {
-  id        String    @id @default(uuid())
-  name      String
-  dishes    Dishes[]
+  id     String   @id @default(uuid())
+  name   String
+  dishes Dishes[]
+
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
@@ -38,15 +40,17 @@ model Menus {
 }
 
 model DishCategories {
-  id     String   @id @default(uuid())
-  name   String   @unique
+  id   String @id @default(uuid())
+  name String @unique
+
   dishes Dishes[]
 }
 
 model Dishes {
-  id          String        @id @default(uuid())
-  name        String        @unique
-  price       Float
+  id    String @id @default(uuid())
+  name  String @unique
+  price Float
+
   ingredients Ingredients[]
 
   menus      Menus?          @relation(fields: [menusId], references: [id])
@@ -54,7 +58,7 @@ model Dishes {
   category   DishCategories? @relation(fields: [categoryId], references: [id])
   categoryId String?
 
-  OrderItems OrderItems[]
+  orderItems OrderItems[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
