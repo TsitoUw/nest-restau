@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { IngredientCategoriesController } from './ingredient-categories.controller';
-import { IngredientCategoriesService } from './ingredients.service';
+import { IngredientsController } from './ingredients.controller';
+import { IngredientsService } from './ingredients.service';
 import PrismaService from 'src/prisma.service';
 
 @Module({
-  controllers: [IngredientCategoriesController],
-  providers: [IngredientCategoriesService, PrismaService],
+  controllers: [IngredientsController],
+  providers: [IngredientsService, PrismaService],
 })
 export class IngredientsModule {}

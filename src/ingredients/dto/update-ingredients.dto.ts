@@ -1,16 +1,11 @@
-import { Dishes } from '@prisma/client';
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
-export class UpdateIngredientDto {
+export class UpdateIngredientsDto {
   @IsOptional()
   @IsString()
   name: string;
 
   @IsOptional()
   @IsString()
-  categoryId: string;
-
-  @IsOptional()
-  @IsArray()
-  dishes: Dishes[];
+  categoriesId: string;
 }

@@ -1,12 +1,10 @@
-import { IsNumber, IsString } from 'class-validator';
+import { OrderStatuses } from '@prisma/client';
+import { IsString } from 'class-validator';
 
 export class CreateOrderItemsDto {
-  @IsNumber()
-  quantity: number;
+  @IsString()
+  billId: string;
 
   @IsString()
-  dishesId: string;
-
-  @IsString()
-  ordersId: string;
+  status: OrderStatuses;
 }
