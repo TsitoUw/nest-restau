@@ -13,7 +13,7 @@ export class UsersService {
         data,
         select: {
           id: true,
-          name: true,
+          username: true,
           role: true,
         },
       });
@@ -30,7 +30,7 @@ export class UsersService {
         data: newData,
         select: {
           id: true,
-          name: true,
+          username: true,
           role: true,
         },
       });

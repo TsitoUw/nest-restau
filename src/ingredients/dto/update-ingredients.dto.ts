@@ -1,11 +1,9 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class UpdateIngredientsDto {
-  @IsOptional()
   @IsString()
-  name: string;
+  name?: string;
 
-  @IsOptional()
   @IsString()
-  categoriesId: string;
+  categoriesId?: string;
 }

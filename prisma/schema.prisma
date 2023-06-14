@@ -17,33 +17,27 @@ enum Roles {
 
 model Users {
   id       String  @id @default(uuid())
-  name     String
+  username String? @unique()
   password String?
   role     Roles   @default(CLIENT)
-  bills    Bills[]
+
+  bills Bills[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
-  @@index([id, name])
+  @@index([id, username])
 }
 
 model Menus {
-  id     String   @id @default(uuid())
-  name   String
-  dishes Dishes[]
+  id   String @id @default(uuid())
+  name String
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+  Dishes    Dishes[]
 
   @@index([id, name])
-}
-
-model DishCategories {
-  id   String @id @default(uuid())
-  name String @unique
-
-  dishes Dishes[]
 }
 
 model Dishes {
@@ -51,19 +45,26 @@ model Dishes {
   name  String @unique
   price Float
 
+  menus Menus? @relation(fields: [menusId], references: [id])
+
+  dishCategory DishCategories? @relation(fields: [dishCategoriesId], references: [id])
+
   ingredients Ingredients[]
-
-  menus      Menus?          @relation(fields: [menusId], references: [id])
-  menusId    String?
-  category   DishCategories? @relation(fields: [categoryId], references: [id])
-  categoryId String?
-
-  orderItems OrderItems[]
+  orderItems  OrderItems[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
+  menusId          String?
+  dishCategoriesId String?
+
   @@index([id, name])
+}
+
+model DishCategories {
+  id     String   @id @default(uuid())
+  name   String   @unique
+  Dishes Dishes[]
 }
 
 model IngredientCategories {

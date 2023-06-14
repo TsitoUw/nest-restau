@@ -5,5 +5,5 @@ export class CreateIngredientsDto {
   name: string;
 
   @IsString()
-  categoryId: string | null;
+  categoryId: string;
 }
