@@ -1,9 +1,9 @@
 import { IsArray, IsString } from 'class-validator';
 
-export class CreateOrdersDto {
+export class CreateInvoicesDto {
   @IsString()
-  invoiceId: string;
+  usersId: string;
 
   @IsArray({ each: true })
-  items: Array<{ id: string }>;
+  orders: Array<{ id: string }>;
 }

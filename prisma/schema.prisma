@@ -21,12 +21,20 @@ model Users {
   password String?
   role     Roles   @default(CLIENT)
 
-  bills Bills[]
+  invoices Invoices[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
   @@index([id, username])
+}
+
+model MenusCategories {
+  id    String  @id @default(uuid())
+  name  String
+  menus Menus[]
+
+  @@index([name])
 }
 
 model Menus {
@@ -35,7 +43,10 @@ model Menus {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  Dishes    Dishes[]
+  dishes    Dishes[]
+
+  menusCategory     MenusCategories @relation(fields: [menusCategoriesId], references: [id])
+  menusCategoriesId String
 
   @@index([id, name])
 }
@@ -64,7 +75,7 @@ model Dishes {
 model DishCategories {
   id     String   @id @default(uuid())
   name   String   @unique
-  Dishes Dishes[]
+  dishes Dishes[]
 }
 
 model IngredientCategories {
@@ -108,21 +119,21 @@ model Orders {
 
   items OrderItems[]
 
-  bill   Bills?  @relation(fields: [billId], references: [id])
-  billId String?
+  invoice   Invoices? @relation(fields: [invoiceId], references: [id])
+  invoiceId String?
 
   status OrderStatuses @default(PENDING)
 
   @@index([date])
 }
 
-model Bills {
+model Invoices {
   id String @id @default(uuid())
 
   date   DateTime @default(now())
   orders Orders[]
 
-  User   Users?  @relation(fields: [userId], references: [id])
+  user   Users?  @relation(fields: [userId], references: [id])
   userId String?
 
   @@index([date])

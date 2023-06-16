@@ -1,9 +1,15 @@
-import { IsString } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 
 export class UpdateIngredientsDto {
+  @IsOptional()
   @IsString()
   name?: string;
 
+  @IsOptional()
   @IsString()
-  categoriesId?: string;
+  categoryId?: string;
+
+  @IsOptional()
+  @IsArray({ each: true })
+  dishes?: Array<{ id: string }>;
 }

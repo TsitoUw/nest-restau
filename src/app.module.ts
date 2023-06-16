@@ -7,9 +7,11 @@ import { DishCategoriesModule } from './dish-categories/dish-categories.module';
 import { DishesModule } from './dishes/dishes.module';
 import { MenusModule } from './menus/menus.module';
 import { IngredientsModule } from './ingredients/ingredients.module';
-import { BillsModules } from './bills/bills.module';
+import { InvoicesModules } from './invoices/invoices.module';
 import { OrdersModule } from './orders/orders.module';
 import { OrderItemsModule } from './order-items/order-items.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { MenusCategoriesModule } from './menus-categories/menus-categories.module';
 
 @Module({
   imports: [
@@ -22,7 +24,9 @@ import { OrderItemsModule } from './order-items/order-items.module';
     OrdersModule,
     OrderItemsModule,
     MenusModule,
-    BillsModules,
+    InvoicesModules,
+    PrismaModule,
+    MenusCategoriesModule,
   ],
   controllers: [AppController],
 })

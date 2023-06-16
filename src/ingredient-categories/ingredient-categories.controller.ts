@@ -8,8 +8,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { IngredientCategoriesService } from './ingredient-categories.service';
-import { CreateIngretientCategoryDto } from './dto/create-ingredient-categories.dto';
-import { UpdateIngretientCategoryDto } from './dto/update-ingredient-categories.dto';
+import { CreateIngredientCategoryDto } from './dto/create-ingredient-categories.dto';
+import { UpdateIngredientCategoryDto } from './dto/update-ingredient-categories.dto';
 
 @Controller('ingredient-categories')
 export class IngredientCategoriesController {
@@ -26,12 +26,12 @@ export class IngredientCategoriesController {
   }
 
   @Post()
-  create(@Body() data: CreateIngretientCategoryDto) {
+  create(@Body() data: CreateIngredientCategoryDto) {
     return this.service.create(data);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() data: UpdateIngretientCategoryDto) {
+  update(@Param('id') id: string, @Body() data: UpdateIngredientCategoryDto) {
     return this.service.update(id, data);
   }
 

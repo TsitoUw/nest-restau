@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import PrismaService from 'src/prisma.service';
+import PrismaService from 'src/prisma/prisma.service';
 import { CreateOrdersDto } from './dto/create-orders.dto';
 import { UpdateOrdersDto } from './dto/update-orders.dto';
 
@@ -16,7 +16,12 @@ export class OrdersService {
   }
 
   async create(data: CreateOrdersDto) {
-    return await this.prisma.orders.create({ data });
+    return await this.prisma.orders.create({
+      data: {
+        invoiceId: data.invoiceId,
+        items: { connect: data.items },
+      },
+    });
   }
 
   async delete(id: string) {
@@ -26,7 +31,11 @@ export class OrdersService {
   async update(id: string, data: UpdateOrdersDto) {
     return await this.prisma.orders.update({
       where: { id },
-      data,
+      data: {
+        invoiceId: data.invoiceId,
+        status: data.status,
+        items: { connect: data.items },
+      },
     });
   }
 }

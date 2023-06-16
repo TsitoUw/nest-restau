@@ -4,7 +4,7 @@ import { CreateDishesDto } from './dto/create-dishes.dto';
 import { UpdateDishesDto } from './dto/update-dishes.dto';
 
 @Controller('dishes')
-export class IngredientsController {
+export class DishesController {
   constructor(private service: DishesService) {}
 
   @Get()

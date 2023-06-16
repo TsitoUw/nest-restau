@@ -3,13 +3,13 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 export class UpdateOrderItemsDto {
   @IsOptional()
   @IsNumber()
-  quantity: number;
+  quantity?: number;
 
   @IsOptional()
   @IsString()
-  dishesId: string;
+  dishesId?: string;
 
   @IsOptional()
   @IsString()
-  ordersId: string;
+  ordersId?: string;
 }

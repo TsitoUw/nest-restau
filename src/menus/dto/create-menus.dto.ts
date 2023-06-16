@@ -1,16 +1,13 @@
-import { Ingredients } from '@prisma/client';
-import { IsArray, IsNumber, IsString } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 
 export class CreateMenusDto {
   @IsString()
   name: string;
 
   @IsString()
-  categoryId: string;
+  menusCategoriesId: string;
 
-  @IsNumber()
-  price: number;
-
-  @IsArray()
-  ingredients: Ingredients[];
+  @IsOptional()
+  @IsArray({ each: true })
+  dishes?: Array<{ id: string }>;
 }

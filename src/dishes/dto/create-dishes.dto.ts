@@ -1,15 +1,23 @@
-import { DishCategories, Ingredients, Menus, OrderItems } from '@prisma/client';
-import {
-  ArrayNotEmpty,
-  ArrayUnique,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateDishesDto {
+  @IsString()
   name: string;
+
+  @IsNumber()
   price: number;
 
-  menusId?: string;
-  dishCategories?: string;
+  @IsString()
+  menusId: string;
+
+  @IsString()
+  dishCategoriesId: string;
+
+  @IsOptional()
+  @IsArray({ each: true })
+  ingredients?: Array<{ id: string }>;
+
+  @IsOptional()
+  @IsArray({ each: true })
+  orderItems?: Array<{ id: string }>;
 }

@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 
 export class CreateIngredientsDto {
   @IsString()
@@ -6,4 +6,8 @@ export class CreateIngredientsDto {
 
   @IsString()
   categoryId: string;
+
+  @IsOptional()
+  @IsArray({ each: true })
+  dishes?: Array<{ id: string }>;
 }

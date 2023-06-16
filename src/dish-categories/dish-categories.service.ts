@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import PrismaService from 'src/prisma.service';
+import PrismaService from 'src/prisma/prisma.service';
 import { CreateDishCategoryDto } from './dto/create-dish-categories.dto';
 import { UpdateDishCategoryDto } from './dto/update-dish-categories.dto';
 
@@ -16,7 +16,12 @@ export class DishCategoriesService {
   }
 
   async create(data: CreateDishCategoryDto) {
-    return await this.prisma.dishCategories.create({ data });
+    return await this.prisma.dishCategories.create({
+      data: {
+        name: data.name,
+        dishes: { connect: data.dishes },
+      },
+    });
   }
 
   async delete(id: string) {
@@ -26,7 +31,10 @@ export class DishCategoriesService {
   async update(id: string, data: UpdateDishCategoryDto) {
     return await this.prisma.dishCategories.update({
       where: { id },
-      data,
+      data: {
+        name: data.name,
+        dishes: { connect: data.dishes },
+      },
     });
   }
 }

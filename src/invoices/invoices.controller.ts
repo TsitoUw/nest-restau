@@ -7,13 +7,13 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { BillsService } from './bills.service';
-import { CreateBillsDto } from './dto/create-bills.dto';
-import { UpdateBillsDto } from './dto/update-bills.dto';
+import { InvoicesService } from './invoices.service';
+import { CreateInvoicesDto } from './dto/create-invoices.dto';
+import { UpdateInvoicesDto } from './dto/update-invoices.dto';
 
-@Controller('bills')
-export class BillsController {
-  constructor(private service: BillsService) {}
+@Controller('invoices')
+export class InvoicesController {
+  constructor(private service: InvoicesService) {}
 
   @Get()
   getAll() {
@@ -26,12 +26,12 @@ export class BillsController {
   }
 
   @Post()
-  create(@Body() data: CreateBillsDto) {
+  create(@Body() data: CreateInvoicesDto) {
     return this.service.create(data);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() data: UpdateBillsDto) {
+  update(@Param('id') id: string, @Body() data: UpdateInvoicesDto) {
     return this.service.update(id, data);
   }
 

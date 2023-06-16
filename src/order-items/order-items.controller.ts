@@ -3,7 +3,7 @@ import { OrderItemsService } from './order-items.service';
 import { CreateOrderItemsDto } from './dto/create-order-items.dto';
 import { UpdateOrderItemsDto } from './dto/update-order-items.dto';
 
-@Controller('ingredients')
+@Controller('order-items')
 export class OrderItemsController {
   constructor(private service: OrderItemsService) {}
 
