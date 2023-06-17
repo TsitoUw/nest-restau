@@ -1,9 +1,10 @@
-import { IsArray, IsString } from 'class-validator';
+import { IsArray, IsObject, IsString } from 'class-validator';
 
 export class CreateInvoicesDto {
   @IsString()
   usersId: string;
 
-  @IsArray({ each: true })
+  @IsArray()
+  @IsObject({ each: true })
   orders: Array<{ id: string }>;
 }

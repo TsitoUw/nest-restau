@@ -1,4 +1,4 @@
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsObject, IsOptional, IsString } from 'class-validator';
 
 export class UpdateMenusCategoriesDto {
   @IsOptional()
@@ -6,6 +6,7 @@ export class UpdateMenusCategoriesDto {
   name?: string;
 
   @IsOptional()
-  @IsArray({ each: true })
-  menus: Array<{ id: string }>;
+  @IsArray()
+  @IsObject({ each: true })
+  menus?: Array<{ id: string }>;
 }

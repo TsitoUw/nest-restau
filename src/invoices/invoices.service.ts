@@ -19,10 +19,10 @@ export class InvoicesService {
     return await this.prisma.invoices.findMany();
   }
 
-  async create(data: CreateInvoicesDto): Promise<Invoices> {
+  async create(data: CreateInvoicesDto) {
     return await this.prisma.invoices.create({
       data: {
-        user: { connect: { id: data.usersId } },
+        usersId: data.usersId,
         orders: { connect: data.orders },
       },
     });

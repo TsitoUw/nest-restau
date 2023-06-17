@@ -8,7 +8,7 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async create(data: CreateUserDto) {
-    if (data.role === Roles.CLIENT) {
+    if (data.role !== Roles.ADMIN) {
       const res = await this.prisma.users.create({
         data,
         select: {

@@ -130,11 +130,10 @@ model Orders {
 model Invoices {
   id String @id @default(uuid())
 
-  date   DateTime @default(now())
-  orders Orders[]
-
-  user   Users?  @relation(fields: [userId], references: [id])
-  userId String?
+  date    DateTime @default(now())
+  orders  Orders[]
+  users   Users?   @relation(fields: [usersId], references: [id])
+  usersId String?
 
   @@index([date])
 }

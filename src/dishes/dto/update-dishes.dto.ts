@@ -1,4 +1,10 @@
-import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class UpdateDishesDto {
   @IsOptional()
@@ -18,10 +24,12 @@ export class UpdateDishesDto {
   dishCategoriesId?: string;
 
   @IsOptional()
-  @IsArray({ each: true })
+  @IsArray()
+  @IsObject({ each: true })
   ingredients?: Array<{ id: string }>;
 
   @IsOptional()
-  @IsArray({ each: true })
+  @IsArray()
+  @IsObject({ each: true })
   orderItems?: Array<{ id: string }>;
 }

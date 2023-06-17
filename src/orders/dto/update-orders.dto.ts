@@ -1,16 +1,17 @@
 import { OrderStatuses } from '@prisma/client';
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsObject, IsOptional, IsString } from 'class-validator';
 
 export class UpdateOrdersDto {
-  @IsOptional()
-  @IsString()
-  invoiceId?: string;
-
   @IsOptional()
   @IsString()
   status?: OrderStatuses;
 
   @IsOptional()
-  @IsArray({ each: true })
+  @IsString()
+  invoiceId?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsObject({ each: true })
   items?: Array<{ id: string }>;
 }
