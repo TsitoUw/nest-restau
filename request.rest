@@ -55,6 +55,9 @@ Content-Type: application/json
   "name": "vegane"
 }
 
+###
+GET http://localhost:3000/
+
 ### create dishes (name, price, ingredients, dishCategoriesId, menusId)
 ### this id: 8afd4769-78e3-420c-bddf-b1f7b45c03c4
 POST http://localhost:3000/dishes

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import PrismaService from 'src/prisma/prisma.service';
 import { CreateDishesDto } from './dto/create-dishes.dto';
 import { UpdateDishesDto } from './dto/update-dishes.dto';
+import { QueryDto } from 'src/shared/dto/query.dto';
 
 @Injectable()
 export class DishesService {
@@ -11,8 +12,17 @@ export class DishesService {
     return await this.prisma.dishes.findUnique({ where: { id } });
   }
 
-  async getAll() {
-    return await this.prisma.dishes.findMany();
+  async getAll(query: QueryDto) {
+    return await this.prisma.dishes.findMany({
+      where: {
+        name: {
+          contains: query.search,
+          mode: 'insensitive',
+        },
+      },
+      skip: query.offset,
+      take: query.limit,
+    });
   }
 
   async create(data: CreateDishesDto) {
