@@ -3,6 +3,7 @@ import PrismaService from 'src/prisma/prisma.service';
 import { CreateInvoicesDto } from './dto/create-invoices.dto';
 import { UpdateInvoicesDto } from './dto/update-invoices.dto';
 import { Invoices } from '@prisma/client';
+import { QueryDto } from 'src/shared/dto/query.dto';
 
 @Injectable()
 export class InvoicesService {
@@ -15,8 +16,11 @@ export class InvoicesService {
     });
   }
 
-  async getAll() {
-    return await this.prisma.invoices.findMany();
+  async getAll(query: QueryDto) {
+    return await this.prisma.invoices.findMany({
+      skip: query.offset,
+      take: query.limit,
+    });
   }
 
   async create(data: CreateInvoicesDto) {
