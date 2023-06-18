@@ -1,15 +1,24 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { OrderItemsService } from './order-items.service';
 import { CreateOrderItemsDto } from './dto/create-order-items.dto';
 import { UpdateOrderItemsDto } from './dto/update-order-items.dto';
+import { QueryDto } from 'src/shared/dto/query.dto';
 
 @Controller('order-items')
 export class OrderItemsController {
   constructor(private service: OrderItemsService) {}
 
   @Get()
-  getAll() {
-    return this.service.getAll();
+  getAll(@Query() query: QueryDto) {
+    return this.service.getAll(query);
   }
 
   @Get(':id')

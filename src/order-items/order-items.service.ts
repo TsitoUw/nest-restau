@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import PrismaService from 'src/prisma/prisma.service';
 import { CreateOrderItemsDto } from './dto/create-order-items.dto';
 import { UpdateOrderItemsDto } from './dto/update-order-items.dto';
+import { QueryDto } from 'src/shared/dto/query.dto';
 
 @Injectable()
 export class OrderItemsService {
@@ -11,8 +12,11 @@ export class OrderItemsService {
     return await this.prisma.orderItems.findUnique({ where: { id } });
   }
 
-  async getAll() {
-    return await this.prisma.orderItems.findMany();
+  async getAll(query: QueryDto) {
+    return await this.prisma.orderItems.findMany({
+      skip: query.offset,
+      take: query.limit,
+    });
   }
 
   async create(data: CreateOrderItemsDto) {
