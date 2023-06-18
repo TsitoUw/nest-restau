@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import PrismaService from 'src/prisma/prisma.service';
 import { CreateIngredientCategoryDto } from './dto/create-ingredient-categories.dto';
 import { UpdateIngredientCategoryDto } from './dto/update-ingredient-categories.dto';
+import { QueryDto } from 'src/shared/dto/query.dto';
 
 @Injectable()
 export class IngredientCategoriesService {
@@ -11,8 +12,17 @@ export class IngredientCategoriesService {
     return await this.prisma.ingredientCategories.findUnique({ where: { id } });
   }
 
-  async getAll() {
-    return await this.prisma.ingredientCategories.findMany();
+  async getAll(query: QueryDto) {
+    return await this.prisma.ingredientCategories.findMany({
+      where: {
+        name: {
+          contains: query.search,
+          mode: 'insensitive',
+        },
+      },
+      skip: query.offset,
+      take: query.limit,
+    });
   }
 
   async create(data: CreateIngredientCategoryDto) {

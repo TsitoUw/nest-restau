@@ -6,18 +6,20 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { IngredientCategoriesService } from './ingredient-categories.service';
 import { CreateIngredientCategoryDto } from './dto/create-ingredient-categories.dto';
 import { UpdateIngredientCategoryDto } from './dto/update-ingredient-categories.dto';
+import { QueryDto } from 'src/shared/dto/query.dto';
 
 @Controller('ingredient-categories')
 export class IngredientCategoriesController {
   constructor(private service: IngredientCategoriesService) {}
 
   @Get()
-  getAll() {
-    return this.service.getAll();
+  getAll(@Query() query: QueryDto) {
+    return this.service.getAll(query);
   }
 
   @Get(':id')
