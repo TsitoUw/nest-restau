@@ -56,7 +56,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/
+GET http://localhost:3000/invoices?
 
 ### create dishes (name, price, ingredients, dishCategoriesId, menusId)
 ### this id: 8afd4769-78e3-420c-bddf-b1f7b45c03c4

@@ -1,15 +1,24 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { MenusService } from './menus.service';
 import { CreateMenusDto } from './dto/create-menus.dto';
 import { UpdateMenusDto } from './dto/update-menus.dto';
+import { QueryDto } from 'src/shared/dto/query.dto';
 
 @Controller('menus')
 export class MenusController {
   constructor(private service: MenusService) {}
 
   @Get()
-  getAll() {
-    return this.service.getAll();
+  getAll(@Query() query: QueryDto) {
+    return this.service.getAll(query);
   }
 
   @Get(':id')

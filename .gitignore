@@ -36,7 +36,7 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # request test
-# request.rest
+request.rest
 
 # the migration_lock file should be included but we dont need the migrations to be pushed
 /prisma/migrations/*
