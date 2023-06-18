@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import PrismaService from 'src/prisma/prisma.service';
 import { CreateIngredientsDto } from './dto/create-ingredients.dto';
 import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
-import { connect } from 'http2';
+import { QueryDto } from 'src/shared/dto/query.dto';
 
 @Injectable()
 export class IngredientsService {
@@ -12,8 +12,17 @@ export class IngredientsService {
     return await this.prisma.ingredients.findUnique({ where: { id } });
   }
 
-  async getAll() {
-    return await this.prisma.ingredients.findMany();
+  async getAll(query: QueryDto) {
+    return await this.prisma.ingredients.findMany({
+      where: {
+        name: {
+          contains: query.search,
+          mode: 'insensitive',
+        },
+      },
+      skip: query.offset,
+      take: query.limit,
+    });
   }
 
   async create(data: CreateIngredientsDto) {
