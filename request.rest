@@ -73,11 +73,12 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/invoices?
+GET http://localhost:3000/invoices
 
 ### create dishes (name, price, ingredients, dishCategoriesId, menusId)
 ### this id: 8afd4769-78e3-420c-bddf-b1f7b45c03c4
 POST http://localhost:3000/dishes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZWVjMWNmOC03MWY0LTRiM2QtOGJlZS1hNDNkMWIwZmUwMDkiLCJ1c2VybmFtZSI6ImFkbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY4NzE3MjcyMCwiZXhwIjoxNjg3MTczNjIwfQ.7JzY8s_U2sww8-IUgahsiISgVS-Mwp1md5JR7-wE5FE
 Content-Type: application/json
 
 {

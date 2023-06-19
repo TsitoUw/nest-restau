@@ -7,7 +7,6 @@ export class RolesGuard {
 
   canActivate(context: ExecutionContext) {
     const roles = this.reflector.get('roles', context.getHandler());
-
     if (!roles) {
       return true;
     }
@@ -15,6 +14,6 @@ export class RolesGuard {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
 
-    return roles === user.roles;
+    return roles === user.role;
   }
 }
