@@ -10,7 +10,7 @@ import {
 import { DishesService } from './dishes.service';
 import { CreateDishesDto } from './dto/create-dishes.dto';
 import { UpdateDishesDto } from './dto/update-dishes.dto';
-import { QueryDto } from 'src/shared/dto/query.dto';
+import { QueryDto } from 'src/common/dto/query.dto';
 
 @Controller('dishes')
 export class DishesController {

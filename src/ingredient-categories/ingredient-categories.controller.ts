@@ -11,7 +11,7 @@ import {
 import { IngredientCategoriesService } from './ingredient-categories.service';
 import { CreateIngredientCategoryDto } from './dto/create-ingredient-categories.dto';
 import { UpdateIngredientCategoryDto } from './dto/update-ingredient-categories.dto';
-import { QueryDto } from 'src/shared/dto/query.dto';
+import { QueryDto } from 'src/common/dto/query.dto';
 
 @Controller('ingredient-categories')
 export class IngredientCategoriesController {

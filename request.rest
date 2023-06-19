@@ -1,12 +1,29 @@
 ### create user (username, password?, role? : "CLIENT" | "ADMIN" [CLIENT if not specified])
 ### this id: 7c873cf9-6644-4b07-b1da-9865291c4774
-POST http://localhost:3000/users
+POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "username": "bouboudy"
+  "username": "adm",
+  "password": "administrator",
+  "role": "ADMIN"
 }
 
+### this id: 7c873cf9-6644-4b07-b1da-9865291c4774
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "username": "adm",
+  "password": "administrator"
+}
+
+### this id: 7c873cf9-6644-4b07-b1da-9865291c4774
+POST http://localhost:3000/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZWVjMWNmOC03MWY0LTRiM2QtOGJlZS1hNDNkMWIwZmUwMDkiLCJ1c2VybmFtZSI6ImFkbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY4NzE2OTYxMCwiZXhwIjoxNjg3MTcwNTEwfQ.UlANcI9EBg5rqL4B5sp9x2SsKtI3MtsPUA6eY4UCte8
+### this id: 7c873cf9-6644-4b07-b1da-9865291c4774
+POST http://localhost:3000/auth/refresh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZWVjMWNmOC03MWY0LTRiM2QtOGJlZS1hNDNkMWIwZmUwMDkiLCJ1c2VybmFtZSI6ImFkbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY4NzE2OTYxMCwiZXhwIjoxNjg3MTcwNTEwfQ.UlANcI9EBg5rqL4B5sp9x2SsKtI3MtsPUA6eY4UCte8
 ### create ingredient-categories (name)
 ### this id: 580a8e7c-e7f4-495f-8f44-2d049dc36dfb
 POST http://localhost:3000/ingredient-categories

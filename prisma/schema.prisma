@@ -23,6 +23,8 @@ model Users {
 
   invoices Invoices[]
 
+  hashedRt String?
+
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 

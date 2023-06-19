@@ -11,7 +11,7 @@ import {
 import { DishCategoriesService } from './dish-categories.service';
 import { CreateDishCategoryDto } from './dto/create-dish-categories.dto';
 import { UpdateDishCategoryDto } from './dto/update-dish-categories.dto';
-import { QueryDto } from 'src/shared/dto/query.dto';
+import { QueryDto } from 'src/common/dto/query.dto';
 
 @Controller('dish-categories')
 export class DishCategoriesController {

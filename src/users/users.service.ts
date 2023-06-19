@@ -7,34 +7,15 @@ import { Roles } from '@prisma/client';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateUserDto) {
-    if (data.role !== Roles.ADMIN) {
-      const res = await this.prisma.users.create({
-        data,
-        select: {
-          id: true,
-          username: true,
-          role: true,
-        },
-      });
-      return res;
-    } else {
-      if (!data.password)
-        throw new HttpException(
-          'Password is required for admin account',
-          HttpStatus.EXPECTATION_FAILED,
-        );
-      const hash = data.password;
-      const newData = { ...data, password: hash };
-      const res = await this.prisma.users.create({
-        data: newData,
-        select: {
-          id: true,
-          username: true,
-          role: true,
-        },
-      });
-      return res;
-    }
+  async getAll() {
+    return await this.prisma.users.findMany({});
+  }
+
+  async getOne(userId: string) {
+    return await this.prisma.users.findUnique({
+      where: {
+        id: userId,
+      },
+    });
   }
 }

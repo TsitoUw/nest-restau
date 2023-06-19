@@ -10,7 +10,7 @@ import {
 import { OrderItemsService } from './order-items.service';
 import { CreateOrderItemsDto } from './dto/create-order-items.dto';
 import { UpdateOrderItemsDto } from './dto/update-order-items.dto';
-import { QueryDto } from 'src/shared/dto/query.dto';
+import { QueryDto } from 'src/common/dto/query.dto';
 
 @Controller('order-items')
 export class OrderItemsController {

@@ -3,7 +3,7 @@ import PrismaService from 'src/prisma/prisma.service';
 import { CreateInvoicesDto } from './dto/create-invoices.dto';
 import { UpdateInvoicesDto } from './dto/update-invoices.dto';
 import { Invoices } from '@prisma/client';
-import { QueryDto } from 'src/shared/dto/query.dto';
+import { QueryDto } from 'src/common/dto/query.dto';
 
 @Injectable()
 export class InvoicesService {

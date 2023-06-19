@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import PrismaService from 'src/prisma/prisma.service';
 import { CreateDishCategoryDto } from './dto/create-dish-categories.dto';
 import { UpdateDishCategoryDto } from './dto/update-dish-categories.dto';
-import { QueryDto } from 'src/shared/dto/query.dto';
+import { QueryDto } from 'src/common/dto/query.dto';
 
 @Injectable()
 export class DishCategoriesService {

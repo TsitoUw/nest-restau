@@ -12,6 +12,8 @@ import { OrdersModule } from './orders/orders.module';
 import { OrderItemsModule } from './order-items/order-items.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { MenusCategoriesModule } from './menus-categories/menus-categories.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AtGuard } from './common/guards/at.guard';
 
 @Module({
   imports: [
@@ -29,5 +31,11 @@ import { MenusCategoriesModule } from './menus-categories/menus-categories.modul
     MenusCategoriesModule,
   ],
   controllers: [AppController],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AtGuard,
+    },
+  ],
 })
 export class AppModule {}

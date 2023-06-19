@@ -11,7 +11,7 @@ import {
 import { InvoicesService } from './invoices.service';
 import { CreateInvoicesDto } from './dto/create-invoices.dto';
 import { UpdateInvoicesDto } from './dto/update-invoices.dto';
-import { QueryDto } from 'src/shared/dto/query.dto';
+import { QueryDto } from 'src/common/dto/query.dto';
 
 @Controller('invoices')
 export class InvoicesController {
