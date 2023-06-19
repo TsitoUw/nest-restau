@@ -13,10 +13,9 @@ import { OrderItemsModule } from './order-items/order-items.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { MenusCategoriesModule } from './menus-categories/menus-categories.module';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
-import { AtGuard } from './common/guards/at.guard';
-import { RolesGuard } from './common/guards/roles.guard';
-import { ErrorMiddleware } from './common/middlewares/error.middleware';
-import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter';
+import { AtGuard, RolesGuard } from './common/guards';
+import { ErrorMiddleware } from './common/middlewares';
+import { PrismaExceptionFilter } from './common/filters';
 
 @Module({
   imports: [

@@ -9,10 +9,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { InvoicesService } from './invoices.service';
-import { CreateInvoicesDto } from './dto/create-invoices.dto';
-import { UpdateInvoicesDto } from './dto/update-invoices.dto';
-import { QueryDto } from 'src/common/dto/query.dto';
-import { Roles } from 'src/common/decorators/roles.decorator';
+import { CreateInvoicesDto, UpdateInvoicesDto } from './dto';
+import { QueryDto } from 'src/common/dto';
+import { Roles } from 'src/common/decorators';
 
 @Controller('invoices')
 export class InvoicesController {

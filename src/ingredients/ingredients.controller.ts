@@ -9,10 +9,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { IngredientsService } from './ingredients.service';
-import { CreateIngredientsDto } from './dto/create-ingredients.dto';
-import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
-import { QueryDto } from 'src/common/dto/query.dto';
-import { Roles } from 'src/common/decorators/roles.decorator';
+import { CreateIngredientsDto, UpdateIngredientsDto } from './dto';
+import { QueryDto } from 'src/common/dto';
+import { Roles } from 'src/common/decorators';
 
 @Controller('ingredients')
 export class IngredientsController {

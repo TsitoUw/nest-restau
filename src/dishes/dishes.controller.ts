@@ -8,10 +8,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { DishesService } from './dishes.service';
-import { CreateDishesDto } from './dto/create-dishes.dto';
-import { UpdateDishesDto } from './dto/update-dishes.dto';
-import { QueryDto } from 'src/common/dto/query.dto';
-import { Roles } from 'src/common/decorators/roles.decorator';
+import { CreateDishesDto, UpdateDishesDto } from './dto';
+import { QueryDto } from 'src/common/dto';
+import { Roles } from 'src/common/decorators';
 
 @Controller('dishes')
 export class DishesController {

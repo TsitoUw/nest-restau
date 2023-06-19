@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import PrismaService from 'src/prisma/prisma.service';
-import { CreateInvoicesDto } from './dto/create-invoices.dto';
-import { UpdateInvoicesDto } from './dto/update-invoices.dto';
-import { Invoices } from '@prisma/client';
-import { QueryDto } from 'src/common/dto/query.dto';
+import { CreateInvoicesDto, UpdateInvoicesDto } from './dto';
+import { QueryDto } from 'src/common/dto';
 
 @Injectable()
 export class InvoicesService {
   constructor(private prisma: PrismaService) {}
 
-  async getOne(id: string): Promise<Invoices> {
+  async getOne(id: string) {
     return await this.prisma.invoices.findUnique({
       where: { id },
       include: { orders: true },
@@ -36,7 +34,7 @@ export class InvoicesService {
     return await this.prisma.invoices.delete({ where: { id } });
   }
 
-  async update(id: string, data: UpdateInvoicesDto): Promise<Invoices> {
+  async update(id: string, data: UpdateInvoicesDto) {
     return await this.prisma.invoices.update({
       where: { id },
       data: {

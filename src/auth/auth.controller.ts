@@ -7,11 +7,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SignupDto } from './dto/signup.dto';
-import { SigninDto } from './dto/signin.dto';
-import { RtGuard } from 'src/common/guards/rt.guard';
-import { GetCurrentUser } from 'src/common/decorators/get-current-user.decorator';
-import { Public } from 'src/common/decorators/public.decorator';
+import { SignupDto, SigninDto } from './dto';
+import { GetCurrentUser, Public } from 'src/common/decorators';
+import { RtGuard } from 'src/common/guards';
 
 @Controller('auth')
 export class AuthController {

@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { Roles } from 'src/common/decorators/roles.decorator';
-import { QueryDto } from 'src/common/dto/query.dto';
+import { Roles } from 'src/common/decorators';
+import { QueryDto } from 'src/common/dto';
 
 @Controller('users')
 export class UsersController {
