@@ -101,8 +101,8 @@ export class AuthService {
           role,
         },
         {
-          secret: 'at-secret',
-          expiresIn: 60 * 15,
+          secret: process.env.ACCESS_TOKEN_SECRET,
+          expiresIn: process.env.ACCESS_TOKEN_EXPIRATION || 60 * 15,
         },
       ),
       this.jwtService.signAsync(
@@ -112,7 +112,7 @@ export class AuthService {
           role,
         },
         {
-          secret: 'rt-secret',
+          secret: process.env.REFRESH_TOKEN_SECRET,
           expiresIn: 60 * 60 * 12,
         },
       ),
