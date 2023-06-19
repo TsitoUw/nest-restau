@@ -28,7 +28,7 @@ export class AuthService {
 
     const tokens = await this.getTokens(user.id, user.username, user.role);
     await this.updateRtHash(user.id, tokens.refresh_token);
-    return tokens;
+    return { ...tokens, userId: user.id };
   }
 
   async signin(dto: SigninDto) {
@@ -45,7 +45,7 @@ export class AuthService {
 
     const tokens = await this.getTokens(user.id, user.username, user.role);
     await this.updateRtHash(user.id, tokens.refresh_token);
-    return tokens;
+    return { ...tokens, userId: user.id };
   }
 
   async logout(userId: string) {
