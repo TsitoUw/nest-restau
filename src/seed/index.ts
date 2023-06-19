@@ -1,4 +1,5 @@
 import { PrismaClient, Roles, OrderStatuses } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -32,14 +33,14 @@ async function cleanupAndSeed() {
 async function seed() {
   try {
     // Users
+    const hash = await bcrypt.hash('adminpassword', 10);
     const userData = [
       {
         username: 'admin',
-        password: 'adminpassword',
+        password: hash,
         role: Roles.ADMIN,
       },
       {
-        username: 'anonym',
         role: Roles.CLIENT,
       },
     ];

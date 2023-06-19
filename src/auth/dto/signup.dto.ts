@@ -1,8 +1,9 @@
 import { IsOptional, IsString, MinLength } from 'class-validator';
 
 export class SignupDto {
+  @IsOptional()
   @IsString()
-  username: string;
+  username?: string;
 
   @IsOptional()
   @IsString()

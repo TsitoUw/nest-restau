@@ -12,6 +12,7 @@ import { IngredientsService } from './ingredients.service';
 import { CreateIngredientsDto } from './dto/create-ingredients.dto';
 import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
 import { QueryDto } from 'src/common/dto/query.dto';
+import { Roles } from 'src/common/decorators/roles.decorator';
 
 @Controller('ingredients')
 export class IngredientsController {
@@ -27,6 +28,7 @@ export class IngredientsController {
     return this.service.getOne(id);
   }
 
+  @Roles('ADMIN')
   @Post()
   create(@Body() data: CreateIngredientsDto) {
     return this.service.create(data);
