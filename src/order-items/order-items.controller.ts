@@ -11,6 +11,7 @@ import { OrderItemsService } from './order-items.service';
 import { CreateOrderItemsDto } from './dto/create-order-items.dto';
 import { UpdateOrderItemsDto } from './dto/update-order-items.dto';
 import { QueryDto } from 'src/common/dto/query.dto';
+import { Roles } from 'src/common/decorators/roles.decorator';
 
 @Controller('order-items')
 export class OrderItemsController {
@@ -26,11 +27,13 @@ export class OrderItemsController {
     return this.service.getOne(id);
   }
 
+  @Roles('ADMIN')
   @Post()
   create(@Body() data: CreateOrderItemsDto) {
     return this.service.create(data);
   }
 
+  @Roles('ADMIN')
   @Patch(':id')
   update(@Param(':id') id: string, @Body() data: UpdateOrderItemsDto) {
     return this.service.update(id, data);

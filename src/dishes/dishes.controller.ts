@@ -11,20 +11,17 @@ import { DishesService } from './dishes.service';
 import { CreateDishesDto } from './dto/create-dishes.dto';
 import { UpdateDishesDto } from './dto/update-dishes.dto';
 import { QueryDto } from 'src/common/dto/query.dto';
-import { Public } from 'src/common/decorators/public.decorator';
 import { Roles } from 'src/common/decorators/roles.decorator';
 
 @Controller('dishes')
 export class DishesController {
   constructor(private service: DishesService) {}
 
-  @Public()
   @Get()
   getAll(@Query() query: QueryDto) {
     return this.service.getAll(query);
   }
 
-  @Public()
   @Get(':id')
   getOne(@Param('id') id: string) {
     return this.service.getOne(id);

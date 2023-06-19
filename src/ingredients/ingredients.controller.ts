@@ -34,11 +34,13 @@ export class IngredientsController {
     return this.service.create(data);
   }
 
+  @Roles('ADMIN')
   @Patch(':id')
   update(@Param('id') id: string, @Body() data: UpdateIngredientsDto) {
     return this.service.update(id, data);
   }
 
+  @Roles('ADMIN')
   @Delete(':id')
   delete(@Param('id') id: string) {
     return this.service.delete(id);
