@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+With NestJS, this is a `RESTful-api` for a **restaurant management** system. It allows restaurant owners and staff to manage menus, dishes, clients and their orders and invoices.
 
 ## Installation
 
@@ -43,6 +43,13 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+```
+
+## Seeder
+
+```bash
+# seed the database
+$ npm run seed
 ```
 
 ## Test
