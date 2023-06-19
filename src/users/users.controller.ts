@@ -1,6 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Roles } from 'src/common/decorators/roles.decorator';
+import { QueryDto } from 'src/common/dto/query.dto';
 
 @Controller('users')
 export class UsersController {
@@ -8,8 +9,8 @@ export class UsersController {
 
   @Roles('ADMIN')
   @Get()
-  getAll() {
-    return this.service.getAll();
+  getAll(@Query() query: QueryDto) {
+    return this.service.getAll(query);
   }
 
   @Get()
