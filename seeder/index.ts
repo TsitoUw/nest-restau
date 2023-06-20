@@ -1,4 +1,9 @@
-import { PrismaClient, Roles, OrderStatuses } from '@prisma/client';
+import {
+  PrismaClient,
+  Roles,
+  OrderStatuses,
+  IngredientUnit,
+} from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
@@ -184,18 +189,26 @@ async function seed() {
       {
         name: 'Tomatoes',
         categoryId: createdIngredientCategories[0].id,
+        inStock: 20,
+        unit: IngredientUnit.KG,
       },
       {
         name: 'Basil',
         categoryId: createdIngredientCategories[0].id,
+        inStock: 50,
+        unit: IngredientUnit.KG,
       },
       {
         name: 'Ground Beef',
         categoryId: createdIngredientCategories[1].id,
+        inStock: 10,
+        unit: IngredientUnit.KG,
       },
       {
         name: 'Parmesan Cheese',
         categoryId: createdIngredientCategories[2].id,
+        inStock: 10,
+        unit: IngredientUnit.KG,
       },
     ];
 

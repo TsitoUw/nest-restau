@@ -29,6 +29,8 @@ export class IngredientsService {
       data: {
         name: data.name,
         categoryId: data.categoryId,
+        unit: data.unit,
+        inStock: data.inStock,
         dishes: { connect: data.dishes },
       },
     });
@@ -44,6 +46,8 @@ export class IngredientsService {
       data: {
         name: data.name,
         categoryId: data.categoryId,
+        unit: data.unit,
+        inStock: data.inStock,
         dishes: { connect: data.dishes },
       },
     });
