@@ -16,6 +16,7 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { AtGuard, RolesGuard } from './common/guards';
 import { ErrorMiddleware } from './common/middlewares';
 import { PrismaExceptionFilter } from './common/filters';
+import { EnumsModule } from './enums/enums.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { PrismaExceptionFilter } from './common/filters';
     InvoicesModules,
     PrismaModule,
     MenusCategoriesModule,
+    EnumsModule,
   ],
   controllers: [AppController],
   providers: [

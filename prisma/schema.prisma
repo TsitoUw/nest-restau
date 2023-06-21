@@ -57,6 +57,7 @@ model Dishes {
   id    String @id @default(uuid())
   name  String @unique
   price Float
+  description String
 
   menus Menus? @relation(fields: [menusId], references: [id])
 
