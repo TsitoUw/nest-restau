@@ -6,11 +6,14 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFiles,
+  UseInterceptors,
 } from '@nestjs/common';
 import { DishesService } from './dishes.service';
 import { CreateDishesDto, UpdateDishesDto } from './dto';
 import { QueryDto } from 'src/common/dto';
 import { Roles } from 'src/common/decorators';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('dishes')
 export class DishesController {
@@ -28,7 +31,9 @@ export class DishesController {
 
   @Roles('ADMIN')
   @Post()
-  create(@Body() data: CreateDishesDto) {
+  @UseInterceptors(FileInterceptor('files'))
+  create(@Body() data: CreateDishesDto, @UploadedFiles() files : Express.Multer.File[]) {
+    console.log(files)
     return this.service.create(data);
   }
 

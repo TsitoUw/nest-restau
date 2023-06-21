@@ -4,6 +4,7 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
+  
 }
 
 ### this id: 7c873cf9-6644-4b07-b1da-9865291c4774
@@ -20,13 +21,9 @@ POST http://localhost:3000/auth/logout
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZWVjMWNmOC03MWY0LTRiM2QtOGJlZS1hNDNkMWIwZmUwMDkiLCJ1c2VybmFtZSI6ImFkbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY4NzE2OTYxMCwiZXhwIjoxNjg3MTcwNTEwfQ.UlANcI9EBg5rqL4B5sp9x2SsKtI3MtsPUA6eY4UCte8
 
 ### this id: 7c873cf9-6644-4b07-b1da-9865291c4774
-POST http://localhost:3000/ingredients
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3OTQ2MWVlMi0zYWYyLTQxMWMtYWFkYS1hZDZlZGUxOGFkZTIiLCJ1c2VybmFtZSI6bnVsbCwicm9sZSI6IkNMSUVOVCIsImlhdCI6MTY4NzE3NTg0MCwiZXhwIjoxNjg3MTc2NzQwfQ.GFbdMm-joAPDkFoFNEmnORlDZPOlhHVBIox1mfx8i80
+GET http://localhost:3000/ingredients?limit=2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZGQzNTRhZi00ZDJhLTRkMGUtYjYyYS0xNDMyNDZmZDY1NTAiLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg3MzM2MzMyLCJleHAiOjE2ODczMzcyMzJ9.PuN_CIm-nDt-uewmWOGhAWT--2xloEs4OICFh3NrJnQ
 Content-Type: application/json
-
-{
-
-}
 
 ### create ingredient-categories (name)
 ### this id: 580a8e7c-e7f4-495f-8f44-2d049dc36dfb
