@@ -27,6 +27,6 @@ export class EnumsService {
   };
 
   async getAll() {
-    return this.enums
+    return JSON.stringify(this.enums)
   }
 }
