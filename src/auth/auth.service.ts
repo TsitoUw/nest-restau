@@ -4,10 +4,10 @@ import {
   Injectable,
 } from '@nestjs/common';
 import PrismaService from 'src/prisma/prisma.service';
-import { SignupDto } from './dto/signup.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { SigninDto } from './dto/signin.dto';
+import { SignupDto, SigninDto } from './dto';
+
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService, private jwtService: JwtService) {}
@@ -28,7 +28,7 @@ export class AuthService {
 
     const tokens = await this.getTokens(user.id, user.username, user.role);
     await this.updateRtHash(user.id, tokens.refresh_token);
-    return tokens;
+    return { ...tokens, userId: user.id };
   }
 
   async signin(dto: SigninDto) {
@@ -45,7 +45,7 @@ export class AuthService {
 
     const tokens = await this.getTokens(user.id, user.username, user.role);
     await this.updateRtHash(user.id, tokens.refresh_token);
-    return tokens;
+    return { ...tokens, userId: user.id };
   }
 
   async logout(userId: string) {

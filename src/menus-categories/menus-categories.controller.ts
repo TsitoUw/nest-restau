@@ -8,10 +8,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { MenusCategoriesService } from './menus-categories.service';
-import { CreateMenusCategoriesDto } from './dto/create-menus-categories.dto';
-import { UpdateMenusCategoriesDto } from './dto/update-menus-categories.dto';
-import { QueryDto } from 'src/common/dto/query.dto';
-import { Roles } from 'src/common/decorators/roles.decorator';
+import { CreateMenusCategoriesDto, UpdateMenusCategoriesDto } from './dto';
+import { QueryDto } from 'src/common/dto';
+import { Roles } from 'src/common/decorators';
 
 @Controller('menus-categories')
 export class MenusCategoriesController {

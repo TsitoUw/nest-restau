@@ -9,10 +9,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { DishCategoriesService } from './dish-categories.service';
-import { CreateDishCategoryDto } from './dto/create-dish-categories.dto';
-import { UpdateDishCategoryDto } from './dto/update-dish-categories.dto';
-import { QueryDto } from 'src/common/dto/query.dto';
-import { Roles } from 'src/common/decorators/roles.decorator';
+import { CreateDishCategoryDto, UpdateDishCategoryDto } from './dto';
+import { QueryDto } from 'src/common/dto';
+import { Roles } from 'src/common/decorators';
 
 @Controller('dish-categories')
 export class DishCategoriesController {

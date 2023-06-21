@@ -8,10 +8,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
-import { CreateOrdersDto } from './dto/create-orders.dto';
-import { UpdateOrdersDto } from './dto/update-orders.dto';
-import { QueryDto } from 'src/common/dto/query.dto';
-import { Roles } from 'src/common/decorators/roles.decorator';
+import { CreateOrdersDto, UpdateOrdersDto } from './dto';
+import { QueryDto } from 'src/common/dto';
+import { Roles } from 'src/common/decorators';
 
 @Controller('orders')
 export class OrdersController {

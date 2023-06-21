@@ -1,4 +1,11 @@
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IngredientUnit } from '@prisma/client';
+import {
+  IsArray,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 
 export class CreateIngredientsDto {
   @IsString()
@@ -6,6 +13,14 @@ export class CreateIngredientsDto {
 
   @IsString()
   categoryId: string;
+
+  @IsOptional()
+  @IsNumber()
+  @IsPositive()
+  inStock?: number;
+
+  @IsString()
+  unit: IngredientUnit;
 
   @IsOptional()
   @IsArray({ each: true })

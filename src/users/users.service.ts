@@ -1,14 +1,22 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Injectable } from '@nestjs/common';
 import PrismaService from 'src/prisma/prisma.service';
-import { Roles } from '@prisma/client';
+import { QueryDto } from 'src/common/dto/query.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async getAll() {
-    return await this.prisma.users.findMany({});
+  async getAll(query: QueryDto) {
+    return await this.prisma.users.findMany({
+      where: {
+        username: {
+          contains: query.search,
+          mode: 'insensitive',
+        },
+      },
+      skip: query.offset,
+      take: query.limit,
+    });
   }
 
   async getOne(userId: string) {

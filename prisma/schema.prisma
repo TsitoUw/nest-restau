@@ -54,9 +54,10 @@ model Menus {
 }
 
 model Dishes {
-  id    String @id @default(uuid())
-  name  String @unique
-  price Float
+  id          String @id @default(uuid())
+  name        String @unique
+  price       Float
+  description String
 
   menus Menus? @relation(fields: [menusId], references: [id])
 
@@ -70,8 +71,17 @@ model Dishes {
 
   menusId          String?
   dishCategoriesId String?
+  DishePhotos      DishePhotos[]
 
   @@index([id, name])
+}
+
+model DishePhotos {
+  id       String @id @default(uuid())
+  filename String
+
+  dish     Dishes @relation(fields: [dishesId], references: [id])
+  dishesId String
 }
 
 model DishCategories {
@@ -87,10 +97,18 @@ model IngredientCategories {
   ingredients Ingredients[]
 }
 
+enum IngredientUnit {
+  KG
+  L
+  COUNT
+}
+
 model Ingredients {
-  id     String   @id @default(uuid())
-  name   String   @unique
-  dishes Dishes[]
+  id      String         @id @default(uuid())
+  name    String         @unique
+  inStock Int            @default(0)
+  unit    IngredientUnit
+  dishes  Dishes[]
 
   category   IngredientCategories? @relation(fields: [categoryId], references: [id])
   categoryId String?

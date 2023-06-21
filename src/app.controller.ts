@@ -4,6 +4,6 @@ import { Controller, Get } from '@nestjs/common';
 export class AppController {
   @Get()
   get(): string {
-    return 'server is up and runing';
+    return 'Server is up and runing 🚀';
   }
 }
