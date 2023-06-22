@@ -116,16 +116,19 @@ async function seed() {
     const dishesData = [
       {
         name: 'Tomato and Basil Bruschetta',
+        description: 'lorem ipsum',
         price: 8.99,
         menusId: createdMenus[0].id,
       },
       {
         name: 'Classic Spaghetti Bolognese',
+        description: 'lorem ipsum',
         price: 12.99,
         menusId: createdMenus[1].id,
       },
       {
         name: 'Homemade Tiramisu',
+        description: 'lorem ipsum',
         price: 7.99,
         menusId: createdMenus[2].id,
       },

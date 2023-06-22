@@ -71,17 +71,18 @@ model Dishes {
 
   menusId          String?
   dishCategoriesId String?
-  DishePhotos      DishePhotos[]
+
+  photos DishPhotos[]
 
   @@index([id, name])
 }
 
-model DishePhotos {
+model DishPhotos {
   id       String @id @default(uuid())
   filename String
 
-  dish     Dishes @relation(fields: [dishesId], references: [id])
-  dishesId String
+  dish     Dishes? @relation(fields: [dishesId], references: [id])
+  dishesId String?
 }
 
 model DishCategories {

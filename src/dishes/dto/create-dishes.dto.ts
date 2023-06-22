@@ -9,6 +9,9 @@ import {
 export class CreateDishesDto {
   @IsString()
   name: string;
+  
+  @IsString()
+  description: string;
 
   @IsNumber()
   price: number;
@@ -26,4 +29,8 @@ export class CreateDishesDto {
   @IsOptional()
   @IsArray({ each: true })
   orderItems?: Array<{ id: string }>;
+  
+  @IsArray()
+  @IsObject({ each: true })
+  photos?: Array<{ id: string }>;
 }

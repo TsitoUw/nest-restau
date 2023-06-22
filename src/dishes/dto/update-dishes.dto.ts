@@ -10,6 +10,10 @@ export class UpdateDishesDto {
   @IsOptional()
   @IsString()
   name?: string;
+  
+  @IsOptional()
+  @IsString()
+  description?: string;
 
   @IsOptional()
   @IsNumber()
@@ -32,4 +36,9 @@ export class UpdateDishesDto {
   @IsArray()
   @IsObject({ each: true })
   orderItems?: Array<{ id: string }>;
+  
+  @IsOptional()
+  @IsArray()
+  @IsObject({ each: true })
+  photos?: Array<{ id: string }>;
 }

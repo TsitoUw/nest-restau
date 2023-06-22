@@ -28,11 +28,13 @@ export class DishesService {
     return await this.prisma.dishes.create({
       data: {
         name: data.name,
+        description: data.description,
         price: data.price,
         menusId: data.menusId,
         dishCategoriesId: data.dishCategoriesId,
         ingredients: { connect: data.ingredients },
         orderItems: { connect: data.orderItems },
+        photos: { connect: data.photos },
       },
     });
   }
