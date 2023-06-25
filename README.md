@@ -51,6 +51,9 @@ $ npm run start:prod
 ```bash
 # seed the database
 $ npm run seed
+
+# reset and seed the database
+$ npm run seed:reset
 ```
 
 ## Test
