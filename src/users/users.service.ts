@@ -16,6 +16,11 @@ export class UsersService {
       },
       skip: query.offset,
       take: query.limit,
+      select: {
+        id: true,
+        username: true,
+        role: true
+      }
     });
   }
 
@@ -24,6 +29,12 @@ export class UsersService {
       where: {
         id: userId,
       },
+      select: {
+        id: true,
+        username: true,
+        role: true,
+        invoices: true
+      }
     });
   }
 }
