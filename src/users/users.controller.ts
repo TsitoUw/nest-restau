@@ -13,7 +13,7 @@ export class UsersController {
     return this.service.getAll(query);
   }
 
-  @Get()
+  @Get(':id')
   getOne(@Param('id') id: string) {
     return this.service.getOne(id);
   }
