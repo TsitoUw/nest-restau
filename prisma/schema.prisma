@@ -27,8 +27,8 @@ model Users {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  tables    Tables    @relation(fields: [tablesId], references: [id])
-  tablesId  String
+  tables    Tables?    @relation(fields: [tablesId], references: [id])
+  tablesId  String?
 
   @@index([id, username])
 }
@@ -37,7 +37,7 @@ model Tables {
   id    String  @id @default(uuid())
   name  String
   isVip Boolean
-  
+
   users Users[]
 }
 

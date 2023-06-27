@@ -24,11 +24,16 @@ export class AuthService {
         password: hash,
         role: dto.role,
       },
+      select: {
+        id: true,
+        username: true,
+        role: true,
+      },
     });
 
     const tokens = await this.getTokens(user.id, user.username, user.role);
     await this.updateRtHash(user.id, tokens.refresh_token);
-    return { ...tokens, userId: user.id };
+    return { ...tokens, user };
   }
 
   async signin(dto: SigninDto) {
@@ -36,16 +41,24 @@ export class AuthService {
       where: {
         username: dto.username,
       },
+      select: {
+        id: true,
+        username: true,
+        role: true,
+        password: true,
+      },
     });
 
     if (!user) throw new ForbiddenException('Acces Denied');
 
     const passwordMatches = await bcrypt.compare(dto.password, user.password);
     if (!passwordMatches) throw new ForbiddenException('Acces Denied');
+ 
+    delete user.password;
 
     const tokens = await this.getTokens(user.id, user.username, user.role);
     await this.updateRtHash(user.id, tokens.refresh_token);
-    return { ...tokens, userId: user.id };
+    return { ...tokens, user };
   }
 
   async logout(userId: string) {
