@@ -1,7 +1,8 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Roles } from 'src/common/decorators';
 import { QueryDto } from 'src/common/dto';
+import { UpdateUserDto } from './dto';
 
 @Controller('users')
 export class UsersController {
@@ -16,5 +17,10 @@ export class UsersController {
   @Get(':id')
   getOne(@Param('id') id: string) {
     return this.service.getOne(id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() data: UpdateUserDto) {
+    return this.service.update(id, data);
   }
 }
