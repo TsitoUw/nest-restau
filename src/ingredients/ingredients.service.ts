@@ -19,7 +19,7 @@ export class IngredientsService {
     const take = this.paginationHelper.calculateTake(sanitizedPagination);
 
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.ingredientCategories.findMany({
+      this.prisma.ingredients.findMany({
         where: {
           name: {
             contains: pagination.filter,
@@ -32,7 +32,7 @@ export class IngredientsService {
         skip: skip,
         take: take,
       }),
-      this.prisma.ingredientCategories.count({
+      this.prisma.ingredients.count({
         where: {
           name: {
             contains: pagination.filter,
