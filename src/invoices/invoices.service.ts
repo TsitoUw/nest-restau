@@ -27,12 +27,22 @@ export class InvoicesService {
     const [data, total] = await this.prisma.$transaction([
       this.prisma.invoices.findMany({
         where: {
-          users: {
-            username: {
-              contains: pagination.filter,
-              mode: 'insensitive',
+          OR: [
+            {
+              users: {
+                username: {
+                  contains: pagination.filter,
+                  mode: 'insensitive',
+                },
+              },
             },
-          },
+            {
+              usersId: {
+                contains: pagination.filter,
+                mode: 'insensitive',
+              },
+            },
+          ],
         },
         orderBy: {
           [sanitizedPagination.sort]: sanitizedPagination.order,
@@ -42,12 +52,22 @@ export class InvoicesService {
       }),
       this.prisma.invoices.count({
         where: {
-          users: {
-            username: {
-              contains: pagination.filter,
-              mode: 'insensitive',
+          OR: [
+            {
+              users: {
+                username: {
+                  contains: pagination.filter,
+                  mode: 'insensitive',
+                },
+              },
             },
-          },
+            {
+              usersId: {
+                contains: pagination.filter,
+                mode: 'insensitive',
+              },
+            },
+          ],
         },
       }),
     ]);
