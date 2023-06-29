@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { DishCategoriesService } from './dish-categories.service';
 import { CreateDishCategoryDto, UpdateDishCategoryDto } from './dto';
-import { QueryDto } from 'src/common/dto';
+import { PaginationDto } from 'src/common/dto';
 import { Roles } from 'src/common/decorators';
 
 @Controller('dish-categories')
@@ -18,7 +18,7 @@ export class DishCategoriesController {
   constructor(private service: DishCategoriesService) {}
 
   @Get()
-  getAll(@Query() paginationQuery: QueryDto) {
+  getAll(@Query() paginationQuery: PaginationDto) {
     return this.service.getAll(paginationQuery);
   }
 
