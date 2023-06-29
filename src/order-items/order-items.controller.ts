@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { OrderItemsService } from './order-items.service';
 import { CreateOrderItemsDto, UpdateOrderItemsDto } from './dto';
-import { QueryDto } from 'src/common/dto';
+import { PaginationDto } from 'src/common/dto';
 import { Roles } from 'src/common/decorators';
 
 @Controller('order-items')
@@ -17,7 +17,7 @@ export class OrderItemsController {
   constructor(private service: OrderItemsService) {}
 
   @Get()
-  getAll(@Query() query: QueryDto) {
+  getAll(@Query() query: PaginationDto) {
     return this.service.getAll(query);
   }
 
