@@ -1,4 +1,9 @@
-import { IsOptional, IsPositive, IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsPositive, IsString } from 'class-validator';
+
+export enum SortOrder {
+  ASC = 'asc',
+  DESC = 'desc',
+}
 
 export class PaginationDto {
   @IsOptional()
@@ -16,4 +21,8 @@ export class PaginationDto {
   @IsOptional()
   @IsString()
   filter: string;
+
+  @IsOptional()
+  @IsEnum(SortOrder)
+  order: SortOrder;
 }

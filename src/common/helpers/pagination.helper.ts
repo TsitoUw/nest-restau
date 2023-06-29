@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PaginationDto } from '../dto';
+import { PaginationDto, SortOrder } from '../dto';
 
 @Injectable()
 export class PaginationHelper {
@@ -7,6 +7,11 @@ export class PaginationHelper {
     const sanitizedPagination = { ...pagination };
     sanitizedPagination.page = sanitizedPagination.page || 1;
     sanitizedPagination.limit = Math.min(sanitizedPagination.limit || 10, 100);
+    sanitizedPagination.order =
+      sanitizedPagination.order === SortOrder.ASC ||
+      sanitizedPagination.order === SortOrder.DESC
+        ? sanitizedPagination.order
+        : undefined;
     return sanitizedPagination;
   }
 

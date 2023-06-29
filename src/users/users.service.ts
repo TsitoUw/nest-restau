@@ -25,6 +25,9 @@ export class UsersService {
             mode: 'insensitive',
           },
         },
+        orderBy: {
+          [sanitizedPagination.sort]: sanitizedPagination.order
+        },
         skip: skip,
         take: take,
         select: {
