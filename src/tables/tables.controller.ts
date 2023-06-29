@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { TablesService } from './tables.service';
 import { CreateTablesDto, UpdateTablesDto } from './dto';
-import { QueryDto } from 'src/common/dto';
+import { PaginationDto } from 'src/common/dto';
 import { Roles } from 'src/common/decorators';
 
 @Controller('tables')
@@ -17,7 +17,7 @@ export class TablesController {
   constructor(private service: TablesService) {}
 
   @Get()
-  getAll(@Query() query: QueryDto) {
+  getAll(@Query() query: PaginationDto) {
     return this.service.getAll(query);
   }
 
