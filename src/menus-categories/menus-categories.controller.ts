@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { MenusCategoriesService } from './menus-categories.service';
 import { CreateMenusCategoriesDto, UpdateMenusCategoriesDto } from './dto';
-import { QueryDto } from 'src/common/dto';
+import { PaginationDto } from 'src/common/dto';
 import { Roles } from 'src/common/decorators';
 
 @Controller('menus-categories')
@@ -17,7 +17,7 @@ export class MenusCategoriesController {
   constructor(private service: MenusCategoriesService) {}
 
   @Get()
-  getAll(@Query() query: QueryDto) {
+  getAll(@Query() query: PaginationDto) {
     return this.service.getAll(query);
   }
 
