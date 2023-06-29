@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { InvoicesService } from './invoices.service';
 import { CreateInvoicesDto, UpdateInvoicesDto } from './dto';
-import { QueryDto } from 'src/common/dto';
+import { PaginationDto } from 'src/common/dto';
 import { Roles } from 'src/common/decorators';
 
 @Controller('invoices')
@@ -18,7 +18,7 @@ export class InvoicesController {
   constructor(private service: InvoicesService) {}
 
   @Get()
-  getAll(@Query() query: QueryDto) {
+  getAll(@Query() query: PaginationDto) {
     return this.service.getAll(query);
   }
 
