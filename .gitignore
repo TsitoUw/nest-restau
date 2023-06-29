@@ -36,7 +36,7 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # DEV
-request.rest
+*.rest
 .env
 
 # the migration_lock file should be included but we dont need the migrations to be pushed

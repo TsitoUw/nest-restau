@@ -17,6 +17,7 @@ import { AtGuard, RolesGuard } from './common/guards';
 import { ErrorMiddleware } from './common/middlewares';
 import { PrismaExceptionFilter } from './common/filters';
 import { EnumsModule } from './enums/enums.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { EnumsModule } from './enums/enums.module';
     PrismaModule,
     MenusCategoriesModule,
     EnumsModule,
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [

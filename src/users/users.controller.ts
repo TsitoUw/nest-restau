@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Patch, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Roles } from 'src/common/decorators';
-import { QueryDto } from 'src/common/dto';
+import { PaginationDto, QueryDto } from 'src/common/dto';
 import { UpdateUserDto } from './dto';
 
 @Controller('users')
@@ -10,8 +10,8 @@ export class UsersController {
 
   @Roles('ADMIN')
   @Get()
-  getAll(@Query() query: QueryDto) {
-    return this.service.getAll(query);
+  getAll(@Query() pagination: PaginationDto) {
+    return this.service.getAll(pagination);
   }
 
   @Get(':id')

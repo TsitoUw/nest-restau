@@ -1,28 +1,54 @@
 import { Injectable } from '@nestjs/common';
 import PrismaService from 'src/prisma/prisma.service';
-import { QueryDto } from 'src/common/dto/query.dto';
 import { UpdateUserDto } from './dto';
+import { PaginationDto } from 'src/common/dto';
+import { PaginationHelper } from 'src/common/helpers';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private paginationHelper: PaginationHelper,
+  ) {}
 
-  async getAll(query: QueryDto) {
-    return await this.prisma.users.findMany({
-      where: {
-        username: {
-          contains: query.search,
-          mode: 'insensitive',
+  async getAll(pagination: PaginationDto) {
+    const sanitizedPagination =
+      this.paginationHelper.sanitizePaginationParams(pagination);
+    const skip = this.paginationHelper.calculateSkip(sanitizedPagination);
+    const take = this.paginationHelper.calculateTake(sanitizedPagination);
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.users.findMany({
+        where: {
+          username: {
+            contains: pagination.filter,
+            mode: 'insensitive',
+          },
         },
-      },
-      skip: query.offset,
-      take: query.limit,
-      select: {
-        id: true,
-        username: true,
-        role: true,
-      },
-    });
+        skip: skip,
+        take: take,
+        select: {
+          id: true,
+          username: true,
+          role: true,
+        },
+      }),
+      this.prisma.users.count({
+        where: {
+          username: {
+            contains: pagination.filter,
+            mode: 'insensitive',
+          },
+        },
+      }),
+    ]);
+    
+    return {
+      data,
+      page: sanitizedPagination.page,
+      limit: sanitizedPagination.limit,
+      total,
+    };
   }
 
   async getOne(userId: string) {
@@ -47,8 +73,8 @@ export class UsersService {
       data: {
         username: data.username,
         tablesId: data.tablesId,
-        invoices: {connect: data.invoices},
-      }
+        invoices: { connect: data.invoices },
+      },
     });
   }
 }
