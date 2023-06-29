@@ -1,27 +1,53 @@
 import { Injectable } from '@nestjs/common';
 import PrismaService from 'src/prisma/prisma.service';
 import { CreateIngredientsDto, UpdateIngredientsDto } from './dto';
-import { QueryDto } from 'src/common/dto';
+import { PaginationDto } from 'src/common/dto';
+import { PaginationHelper } from 'src/common/helpers';
 
 @Injectable()
 export class IngredientsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private paginationHelper: PaginationHelper) {}
 
   async getOne(id: string) {
     return await this.prisma.ingredients.findUnique({ where: { id } });
   }
 
-  async getAll(query: QueryDto) {
-    return await this.prisma.ingredients.findMany({
-      where: {
-        name: {
-          contains: query.search,
-          mode: 'insensitive',
+  async getAll(pagination: PaginationDto) {
+    const sanitizedPagination =
+      this.paginationHelper.sanitizePaginationParams(pagination);
+    const skip = this.paginationHelper.calculateSkip(sanitizedPagination);
+    const take = this.paginationHelper.calculateTake(sanitizedPagination);
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.ingredientCategories.findMany({
+        where: {
+          name: {
+            contains: pagination.filter,
+            mode: 'insensitive',
+          },
         },
-      },
-      skip: query.offset,
-      take: query.limit,
-    });
+        orderBy: {
+          [sanitizedPagination.sort]: sanitizedPagination.order
+        },
+        skip: skip,
+        take: take,
+      }),
+      this.prisma.ingredientCategories.count({
+        where: {
+          name: {
+            contains: pagination.filter,
+            mode: 'insensitive',
+          },
+        },
+      }),
+    ]);
+    
+    return {
+      data,
+      page: sanitizedPagination.page,
+      limit: sanitizedPagination.limit,
+      total,
+    };
   }
 
   async create(data: CreateIngredientsDto) {

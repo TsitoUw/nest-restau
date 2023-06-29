@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { IngredientsService } from './ingredients.service';
 import { CreateIngredientsDto, UpdateIngredientsDto } from './dto';
-import { QueryDto } from 'src/common/dto';
+import { PaginationDto } from 'src/common/dto';
 import { Roles } from 'src/common/decorators';
 
 @Controller('ingredients')
@@ -18,7 +18,7 @@ export class IngredientsController {
   constructor(private service: IngredientsService) {}
 
   @Get()
-  getAll(@Query() query: QueryDto) {
+  getAll(@Query() query: PaginationDto) {
     return this.service.getAll(query);
   }
 
