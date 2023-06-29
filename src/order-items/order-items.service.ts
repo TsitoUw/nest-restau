@@ -6,7 +6,10 @@ import { PaginationHelper } from 'src/common/helpers';
 
 @Injectable()
 export class OrderItemsService {
-  constructor(private prisma: PrismaService, private paginationHelper: PaginationHelper) {}
+  constructor(
+    private prisma: PrismaService,
+    private paginationHelper: PaginationHelper,
+  ) {}
 
   async getOne(id: string) {
     return await this.prisma.orderItems.findUnique({ where: { id } });
@@ -19,11 +22,13 @@ export class OrderItemsService {
     const take = this.paginationHelper.calculateTake(sanitizedPagination);
 
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.menusCategories.findMany({
+      this.prisma.orderItems.findMany({
         where: {
-          name: {
-            contains: pagination.filter,
-            mode: 'insensitive',
+          dish: {
+            name: {
+              contains: pagination.filter,
+              mode: 'insensitive',
+            },
           },
         },
         orderBy: {
@@ -32,11 +37,13 @@ export class OrderItemsService {
         skip: skip,
         take: take,
       }),
-      this.prisma.menusCategories.count({
+      this.prisma.orderItems.count({
         where: {
-          name: {
-            contains: pagination.filter,
-            mode: 'insensitive',
+          dish: {
+            name: {
+              contains: pagination.filter,
+              mode: 'insensitive',
+            },
           },
         },
       }),
