@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { DishesService } from './dishes.service';
 import { CreateDishesDto, UpdateDishesDto } from './dto';
-import { QueryDto } from 'src/common/dto';
+import { PaginationDto } from 'src/common/dto';
 import { Roles } from 'src/common/decorators';
 import { FileInterceptor } from '@nestjs/platform-express';
 
@@ -20,7 +20,7 @@ export class DishesController {
   constructor(private service: DishesService) {}
 
   @Get()
-  getAll(@Query() query: QueryDto) {
+  getAll(@Query() query: PaginationDto) {
     return this.service.getAll(query);
   }
 

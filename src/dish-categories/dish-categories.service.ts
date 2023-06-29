@@ -31,10 +31,6 @@ export class DishCategoriesService {
         },
         skip: skip,
         take: take,
-        select: {
-          id: true,
-          name: true,
-        },
       }),
       this.prisma.dishCategories.count({
         where: {
