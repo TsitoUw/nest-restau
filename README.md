@@ -52,7 +52,7 @@ $ npm run start:prod
 # seed the database
 $ npm run seed
 
-# reset and seed the database
+# reset and seed the database with seed
 $ npm run seed:reset
 ```
 
