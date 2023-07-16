@@ -1,4 +1,4 @@
-import { Roles } from '@prisma/client';
+import { Role } from '@prisma/client';
 import { IsOptional, IsString, MinLength } from 'class-validator';
 
 export class CreateUserDto {
@@ -12,5 +12,5 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsString()
-  role?: Roles;
+  role?: Role;
 }

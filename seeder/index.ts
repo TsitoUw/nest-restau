@@ -1,7 +1,7 @@
 import {
   PrismaClient,
-  Roles,
-  OrderStatuses,
+  Role,
+  OrderStatus,
   IngredientUnit,
 } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -12,16 +12,16 @@ async function cleanupAndSeed() {
   try {
     console.clear();
     // Delete existing data
-    await prisma.orderItems.deleteMany();
-    await prisma.orders.deleteMany();
-    await prisma.invoices.deleteMany();
-    await prisma.ingredients.deleteMany();
-    await prisma.ingredientCategories.deleteMany();
-    await prisma.dishes.deleteMany();
-    await prisma.dishCategories.deleteMany();
+    await prisma.orderItem.deleteMany();
+    await prisma.order.deleteMany();
+    await prisma.invoice.deleteMany();
+    await prisma.ingredient.deleteMany();
+    await prisma.ingredientCategory.deleteMany();
+    await prisma.dish.deleteMany();
+    await prisma.dishCategory.deleteMany();
     await prisma.menus.deleteMany();
-    await prisma.menusCategories.deleteMany();
-    await prisma.users.deleteMany();
+    await prisma.menusCategory.deleteMany();
+    await prisma.user.deleteMany();
 
     console.log('Existing data deleted.');
 
@@ -43,17 +43,17 @@ async function seed() {
       {
         username: 'admin',
         password: hash,
-        role: Roles.ADMIN,
+        role: Role.ADMIN,
       },
       {
-        role: Roles.CLIENT,
+        role: Role.CLIENT,
       },
     ];
 
     const createdUsers = [];
 
     for (const user of userData) {
-      const createdUser = await prisma.users.create({
+      const createdUser = await prisma.user.create({
         data: user,
       });
 
@@ -73,7 +73,7 @@ async function seed() {
     const createdMenusCategories = [];
 
     for (const category of menusCategoriesData) {
-      const createdCategory = await prisma.menusCategories.create({
+      const createdCategory = await prisma.menusCategory.create({
         data: category,
       });
 
@@ -137,7 +137,7 @@ async function seed() {
     const createdDishes = [];
 
     for (const dish of dishesData) {
-      const createdDish = await prisma.dishes.create({
+      const createdDish = await prisma.dish.create({
         data: dish,
       });
 
@@ -157,7 +157,7 @@ async function seed() {
     const createdDishCategories = [];
 
     for (const category of dishCategoriesData) {
-      const createdCategory = await prisma.dishCategories.create({
+      const createdCategory = await prisma.dishCategory.create({
         data: category,
       });
 
@@ -177,7 +177,7 @@ async function seed() {
     const createdIngredientCategories = [];
 
     for (const category of ingredientCategoriesData) {
-      const createdCategory = await prisma.ingredientCategories.create({
+      const createdCategory = await prisma.ingredientCategory.create({
         data: category,
       });
 
@@ -218,7 +218,7 @@ async function seed() {
     const createdIngredients = [];
 
     for (const ingredient of ingredientsData) {
-      const createdIngredient = await prisma.ingredients.create({
+      const createdIngredient = await prisma.ingredient.create({
         data: ingredient,
       });
 
@@ -247,7 +247,7 @@ async function seed() {
     const createdOrderItems = [];
 
     for (const item of orderItemsData) {
-      const createdItem = await prisma.orderItems.create({
+      const createdItem = await prisma.orderItem.create({
         data: item,
       });
 
@@ -260,7 +260,7 @@ async function seed() {
     // Orders
     const ordersData = [
       {
-        status: OrderStatuses.PENDING,
+        status: OrderStatus.PENDING,
         items: {
           connect: createdOrderItems.map((item) => ({ id: item.id })),
         },
@@ -270,7 +270,7 @@ async function seed() {
     const createdOrders = [];
 
     for (const order of ordersData) {
-      const createdOrder = await prisma.orders.create({
+      const createdOrder = await prisma.order.create({
         data: order,
       });
 
@@ -294,7 +294,7 @@ async function seed() {
     const createdInvoices = [];
 
     for (const invoice of invoicesData) {
-      const createdInvoice = await prisma.invoices.create({
+      const createdInvoice = await prisma.invoice.create({
         data: invoice,
       });
 
