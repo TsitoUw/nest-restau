@@ -10,43 +10,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Roles {
+enum Role {
   CLIENT
   ADMIN
+  
+  @@map("roles")
 }
 
-model Users {
+model User {
   id       String  @id @default(uuid())
   username String? @unique()
   password String?
-  role     Roles   @default(CLIENT)
+  role     Role   @default(CLIENT)
 
-  invoices Invoices[]
+  invoices Invoice[]
 
   hashedRt String?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  tables    Tables?    @relation(fields: [tablesId], references: [id])
+  tables    Table?    @relation(fields: [tablesId], references: [id])
   tablesId  String?
 
   @@index([id, username])
+  @@map("users")
 }
 
-model Tables {
+model Table {
   id    String  @id @default(uuid())
   name  String
   isVip Boolean
 
-  users Users[]
+  users User[]
+  
+  @@map("tables")
 }
 
-model MenusCategories {
+model MenusCategory {
   id    String  @id @default(uuid())
   name  String
   menus Menus[]
 
   @@index([name])
+  @@map("menus_categories")
 }
 
 model Menus {
@@ -55,15 +61,16 @@ model Menus {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  dishes    Dishes[]
+  dishes    Dish[]
 
-  menusCategory     MenusCategories @relation(fields: [menusCategoriesId], references: [id])
+  menusCategory     MenusCategory @relation(fields: [menusCategoriesId], references: [id])
   menusCategoriesId String
 
   @@index([id, name])
+  @@map("menus")
 }
 
-model Dishes {
+model Dish {
   id          String @id @default(uuid())
   name        String @unique
   price       Float
@@ -71,10 +78,10 @@ model Dishes {
 
   menus Menus? @relation(fields: [menusId], references: [id])
 
-  dishCategory DishCategories? @relation(fields: [dishCategoriesId], references: [id])
+  dishCategory DishCategory? @relation(fields: [dishCategoriesId], references: [id])
 
-  ingredients Ingredients[]
-  orderItems  OrderItems[]
+  ingredients Ingredient[]
+  orderItems  OrderItem[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
@@ -82,94 +89,107 @@ model Dishes {
   menusId          String?
   dishCategoriesId String?
 
-  photos DishPhotos[]
+  photos DishPhoto[]
 
   @@index([id, name])
+  @@map("dishes")
 }
 
-model DishPhotos {
+model DishPhoto {
   id       String @id @default(uuid())
   filename String
 
-  dish     Dishes? @relation(fields: [dishesId], references: [id])
+  dish     Dish? @relation(fields: [dishesId], references: [id])
   dishesId String?
+  
+  @@map("dish_photos")
 }
 
-model DishCategories {
+model DishCategory {
   id     String   @id @default(uuid())
   name   String   @unique
-  dishes Dishes[]
+  dishes Dish[]
+
+  @@map("dish_categories")
 }
 
-model IngredientCategories {
+model IngredientCategory {
   id   String @id @default(uuid())
   name String @unique
 
-  ingredients Ingredients[]
+  ingredients Ingredient[]
+  @@map("ingredient_categories")
 }
 
 enum IngredientUnit {
   KG
   L
   COUNT
+
+  @@map("ingredient_units")
 }
 
-model Ingredients {
+model Ingredient {
   id      String         @id @default(uuid())
   name    String         @unique
   inStock Int            @default(0)
   unit    IngredientUnit
-  dishes  Dishes[]
+  dishes  Dish[]
 
-  category   IngredientCategories? @relation(fields: [categoryId], references: [id])
+  category   IngredientCategory? @relation(fields: [categoryId], references: [id])
   categoryId String?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
   @@index([id, name])
+  @@map("ingredients")
 }
 
-model OrderItems {
+model OrderItem {
   id       String @id @default(uuid())
   quantity Int
 
-  dish     Dishes @relation(fields: [dishesId], references: [id])
+  dish     Dish @relation(fields: [dishesId], references: [id])
   dishesId String
 
-  orders   Orders? @relation(fields: [ordersId], references: [id])
+  orders   Order? @relation(fields: [ordersId], references: [id])
   ordersId String?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+
+  @@map("order_items")
 }
 
-model Orders {
+model Order {
   id   String   @id @default(uuid())
   date DateTime @default(now())
 
-  items OrderItems[]
+  items OrderItem[]
 
-  invoice   Invoices? @relation(fields: [invoiceId], references: [id])
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id])
   invoiceId String?
 
-  status OrderStatuses @default(PENDING)
+  status OrderStatus @default(PENDING)
 
   @@index([date])
+  @@map("orders")
 }
 
-model Invoices {
+model Invoice {
   id String @id @default(uuid())
 
   date    DateTime @default(now())
-  orders  Orders[]
-  users   Users?   @relation(fields: [usersId], references: [id])
+  orders  Order[]
+  users   User?   @relation(fields: [usersId], references: [id])
   usersId String?
 
   @@index([date])
+  @@map("invoices")
 }
 
-enum OrderStatuses {
+enum OrderStatus {
   PENDING
   PROCESSING
   READY_FOR_PICKUP
@@ -180,6 +200,8 @@ enum OrderStatuses {
   COMPLETED
   ONHOLD
   IN_PROGRESS
+
+  @@map("order_statuses")
 }
 
 // Pending: The order has been received but has not been processed yet.

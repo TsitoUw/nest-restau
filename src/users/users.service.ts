@@ -18,7 +18,7 @@ export class UsersService {
     const take = this.paginationHelper.calculateTake(sanitizedPagination);
 
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.users.findMany({
+      this.prisma.user.findMany({
         where: {
           username: {
             contains: pagination.filter,
@@ -36,7 +36,7 @@ export class UsersService {
           role: true,
         },
       }),
-      this.prisma.users.count({
+      this.prisma.user.count({
         where: {
           username: {
             contains: pagination.filter,
@@ -55,7 +55,7 @@ export class UsersService {
   }
 
   async getOne(userId: string) {
-    return await this.prisma.users.findUnique({
+    return await this.prisma.user.findUnique({
       where: {
         id: userId,
       },
@@ -69,7 +69,7 @@ export class UsersService {
   }
 
   async update(userId: string, data: UpdateUserDto) {
-    return await this.prisma.users.update({
+    return await this.prisma.user.update({
       where: {
         id: userId,
       },

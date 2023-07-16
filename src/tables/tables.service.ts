@@ -12,7 +12,7 @@ export class TablesService {
   ) {}
 
   async getOne(id: string) {
-    return await this.prisma.tables.findUnique({ where: { id } });
+    return await this.prisma.table.findUnique({ where: { id } });
   }
 
   async getAll(pagination: PaginationDto) {
@@ -22,7 +22,7 @@ export class TablesService {
     const take = this.paginationHelper.calculateTake(sanitizedPagination);
 
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.tables.findMany({
+      this.prisma.table.findMany({
         where: {
           name: {
             contains: pagination.filter,
@@ -35,7 +35,7 @@ export class TablesService {
         skip: skip,
         take: take,
       }),
-      this.prisma.tables.count({
+      this.prisma.table.count({
         where: {
           name: {
             contains: pagination.filter,
@@ -54,17 +54,17 @@ export class TablesService {
   }
 
   async create(data: CreateTablesDto) {
-    return await this.prisma.tables.create({
+    return await this.prisma.table.create({
       data: data,
     });
   }
 
   async delete(id: string) {
-    return await this.prisma.tables.delete({ where: { id } });
+    return await this.prisma.table.delete({ where: { id } });
   }
 
   async update(id: string, data: UpdateTablesDto) {
-    return await this.prisma.tables.update({
+    return await this.prisma.table.update({
       where: { id },
       data: data,
     });

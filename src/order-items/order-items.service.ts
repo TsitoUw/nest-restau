@@ -12,7 +12,7 @@ export class OrderItemsService {
   ) {}
 
   async getOne(id: string) {
-    return await this.prisma.orderItems.findUnique({ where: { id } });
+    return await this.prisma.orderItem.findUnique({ where: { id } });
   }
 
   async getAll(pagination: PaginationDto) {
@@ -22,7 +22,7 @@ export class OrderItemsService {
     const take = this.paginationHelper.calculateTake(sanitizedPagination);
 
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.orderItems.findMany({
+      this.prisma.orderItem.findMany({
         where: {
           dish: {
             name: {
@@ -37,7 +37,7 @@ export class OrderItemsService {
         skip: skip,
         take: take,
       }),
-      this.prisma.orderItems.count({
+      this.prisma.orderItem.count({
         where: {
           dish: {
             name: {
@@ -58,15 +58,15 @@ export class OrderItemsService {
   }
 
   async create(data: CreateOrderItemsDto) {
-    return await this.prisma.orderItems.create({ data });
+    return await this.prisma.orderItem.create({ data });
   }
 
   async delete(id: string) {
-    return await this.prisma.orderItems.delete({ where: { id } });
+    return await this.prisma.orderItem.delete({ where: { id } });
   }
 
   async update(id: string, data: UpdateOrderItemsDto) {
-    return await this.prisma.orderItems.update({
+    return await this.prisma.orderItem.update({
       where: { id },
       data,
     });

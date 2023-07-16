@@ -3,14 +3,14 @@ import PrismaService from 'src/prisma/prisma.service';
 import { CreateOrdersDto, UpdateOrdersDto } from './dto';
 import { PaginationDto } from 'src/common/dto';
 import { PaginationHelper } from 'src/common/helpers';
-import { OrderStatuses } from '@prisma/client';
+import { OrderStatus } from '@prisma/client';
 
 @Injectable()
 export class OrdersService {
   constructor(private prisma: PrismaService, private paginationHelper: PaginationHelper) {}
 
   async getOne(id: string) {
-    return await this.prisma.orders.findUnique({ where: { id } });
+    return await this.prisma.order.findUnique({ where: { id } });
   }
 
   async getAll(pagination: PaginationDto) {
@@ -20,21 +20,21 @@ export class OrdersService {
     const take = this.paginationHelper.calculateTake(sanitizedPagination);
 
     const filter = 
-      pagination.filter === OrderStatuses.CANCELLED ||
-      pagination.filter === OrderStatuses.COMPLETED ||
-      pagination.filter === OrderStatuses.DELIVERED ||
-      pagination.filter === OrderStatuses.IN_DELIVERY ||
-      pagination.filter === OrderStatuses.IN_PROGRESS ||
-      pagination.filter === OrderStatuses.ONHOLD ||
-      pagination.filter === OrderStatuses.PENDING ||
-      pagination.filter === OrderStatuses.PROCESSING ||
-      pagination.filter === OrderStatuses.READY_FOR_PICKUP ||
-      pagination.filter === OrderStatuses.REFUNDED
+      pagination.filter === OrderStatus.CANCELLED ||
+      pagination.filter === OrderStatus.COMPLETED ||
+      pagination.filter === OrderStatus.DELIVERED ||
+      pagination.filter === OrderStatus.IN_DELIVERY ||
+      pagination.filter === OrderStatus.IN_PROGRESS ||
+      pagination.filter === OrderStatus.ONHOLD ||
+      pagination.filter === OrderStatus.PENDING ||
+      pagination.filter === OrderStatus.PROCESSING ||
+      pagination.filter === OrderStatus.READY_FOR_PICKUP ||
+      pagination.filter === OrderStatus.REFUNDED
       
-      ? pagination.filter as OrderStatuses : undefined
+      ? pagination.filter as OrderStatus : undefined
   
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.orders.findMany({
+      this.prisma.order.findMany({
         where: {
           status: {
             equals: filter
@@ -46,7 +46,7 @@ export class OrdersService {
         skip: skip,
         take: take,
       }),
-      this.prisma.orders.count({
+      this.prisma.order.count({
         where: {
           status: {
             equals: filter
@@ -64,7 +64,7 @@ export class OrdersService {
   }
 
   async create(data: CreateOrdersDto) {
-    return await this.prisma.orders.create({
+    return await this.prisma.order.create({
       data: {
         invoiceId: data.invoiceId,
         items: { connect: data.items },
@@ -73,11 +73,11 @@ export class OrdersService {
   }
 
   async delete(id: string) {
-    return await this.prisma.orders.delete({ where: { id } });
+    return await this.prisma.order.delete({ where: { id } });
   }
 
   async update(id: string, data: UpdateOrdersDto) {
-    return await this.prisma.orders.update({
+    return await this.prisma.order.update({
       where: { id },
       data: {
         invoiceId: data.invoiceId,

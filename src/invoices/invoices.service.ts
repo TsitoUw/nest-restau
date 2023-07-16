@@ -12,7 +12,7 @@ export class InvoicesService {
   ) {}
 
   async getOne(id: string) {
-    return await this.prisma.invoices.findUnique({
+    return await this.prisma.invoice.findUnique({
       where: { id },
       include: { orders: true },
     });
@@ -25,7 +25,7 @@ export class InvoicesService {
     const take = this.paginationHelper.calculateTake(sanitizedPagination);
 
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.invoices.findMany({
+      this.prisma.invoice.findMany({
         where: {
           OR: [
             {
@@ -50,7 +50,7 @@ export class InvoicesService {
         skip: skip,
         take: take,
       }),
-      this.prisma.invoices.count({
+      this.prisma.invoice.count({
         where: {
           OR: [
             {
@@ -81,7 +81,7 @@ export class InvoicesService {
   }
 
   async create(data: CreateInvoicesDto) {
-    return await this.prisma.invoices.create({
+    return await this.prisma.invoice.create({
       data: {
         usersId: data.usersId,
         orders: { connect: data.orders },
@@ -90,11 +90,11 @@ export class InvoicesService {
   }
 
   async delete(id: string) {
-    return await this.prisma.invoices.delete({ where: { id } });
+    return await this.prisma.invoice.delete({ where: { id } });
   }
 
   async update(id: string, data: UpdateInvoicesDto) {
-    return await this.prisma.invoices.update({
+    return await this.prisma.invoice.update({
       where: { id },
       data: {
         orders: { connect: data.orders },

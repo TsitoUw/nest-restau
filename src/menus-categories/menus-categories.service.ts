@@ -9,7 +9,7 @@ export class MenusCategoriesService {
   constructor(private prisma: PrismaService, private paginationHelper: PaginationHelper) {}
 
   async getOne(id: string) {
-    return await this.prisma.menusCategories.findUnique({ where: { id } });
+    return await this.prisma.menusCategory.findUnique({ where: { id } });
   }
 
   async getAll(pagination: PaginationDto) {
@@ -19,7 +19,7 @@ export class MenusCategoriesService {
     const take = this.paginationHelper.calculateTake(sanitizedPagination);
 
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.menusCategories.findMany({
+      this.prisma.menusCategory.findMany({
         where: {
           name: {
             contains: pagination.filter,
@@ -32,7 +32,7 @@ export class MenusCategoriesService {
         skip: skip,
         take: take,
       }),
-      this.prisma.menusCategories.count({
+      this.prisma.menusCategory.count({
         where: {
           name: {
             contains: pagination.filter,
@@ -51,7 +51,7 @@ export class MenusCategoriesService {
   }
 
   async create(data: CreateMenusCategoriesDto) {
-    return await this.prisma.menusCategories.create({
+    return await this.prisma.menusCategory.create({
       data: {
         name: data.name,
         menus: { connect: data.menus },
@@ -60,11 +60,11 @@ export class MenusCategoriesService {
   }
 
   async delete(id: string) {
-    return await this.prisma.menusCategories.delete({ where: { id } });
+    return await this.prisma.menusCategory.delete({ where: { id } });
   }
 
   async update(id: string, data: UpdateMenusCategoriesDto) {
-    return await this.prisma.menusCategories.update({
+    return await this.prisma.menusCategory.update({
       where: { id },
       data: {
         name: data.name,

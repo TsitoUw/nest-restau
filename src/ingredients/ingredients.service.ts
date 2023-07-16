@@ -9,7 +9,7 @@ export class IngredientsService {
   constructor(private prisma: PrismaService, private paginationHelper: PaginationHelper) {}
 
   async getOne(id: string) {
-    return await this.prisma.ingredients.findUnique({ where: { id } });
+    return await this.prisma.ingredient.findUnique({ where: { id } });
   }
 
   async getAll(pagination: PaginationDto) {
@@ -19,7 +19,7 @@ export class IngredientsService {
     const take = this.paginationHelper.calculateTake(sanitizedPagination);
 
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.ingredients.findMany({
+      this.prisma.ingredient.findMany({
         where: {
           name: {
             contains: pagination.filter,
@@ -32,7 +32,7 @@ export class IngredientsService {
         skip: skip,
         take: take,
       }),
-      this.prisma.ingredients.count({
+      this.prisma.ingredient.count({
         where: {
           name: {
             contains: pagination.filter,
@@ -51,7 +51,7 @@ export class IngredientsService {
   }
 
   async create(data: CreateIngredientsDto) {
-    return await this.prisma.ingredients.create({
+    return await this.prisma.ingredient.create({
       data: {
         name: data.name,
         categoryId: data.categoryId,
@@ -63,11 +63,11 @@ export class IngredientsService {
   }
 
   async delete(id: string) {
-    return await this.prisma.ingredients.delete({ where: { id } });
+    return await this.prisma.ingredient.delete({ where: { id } });
   }
 
   async update(id: string, data: UpdateIngredientsDto) {
-    return await this.prisma.ingredients.update({
+    return await this.prisma.ingredient.update({
       where: { id },
       data: {
         name: data.name,

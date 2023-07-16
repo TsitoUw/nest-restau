@@ -18,7 +18,7 @@ export class AuthService {
     if (dto.role === 'ADMIN' && !hash)
       throw new BadRequestException('Admin accound should have password');
 
-    const user = await this.prisma.users.create({
+    const user = await this.prisma.user.create({
       data: {
         username: dto.username,
         password: hash,
@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   async signin(dto: SigninDto) {
-    const user = await this.prisma.users.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         username: dto.username,
       },
@@ -62,7 +62,7 @@ export class AuthService {
   }
 
   async logout(userId: string) {
-    await this.prisma.users.updateMany({
+    await this.prisma.user.updateMany({
       where: {
         id: userId,
         hashedRt: {
@@ -76,7 +76,7 @@ export class AuthService {
   }
 
   async refreshTokens(userId: string, rt: string) {
-    const user = await this.prisma.users.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         id: userId,
       },
@@ -91,7 +91,7 @@ export class AuthService {
 
   private async updateRtHash(userId: string, rt: string) {
     const hash = await this.hash(rt);
-    await this.prisma.users.update({
+    await this.prisma.user.update({
       where: {
         id: userId,
       },

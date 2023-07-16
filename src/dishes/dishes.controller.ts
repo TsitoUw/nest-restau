@@ -32,7 +32,7 @@ export class DishesController {
   @Roles('ADMIN')
   @Post()
   @UseInterceptors(FileInterceptor('files'))
-  create(@Body() data: CreateDishesDto, @UploadedFiles() files : Express.Multer.File[]) {
+  create(@UploadedFiles() files : Express.Multer.File[], @Body() data: CreateDishesDto) {
     console.log(files)
     return this.service.create(data);
   }

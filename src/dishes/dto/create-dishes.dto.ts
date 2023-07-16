@@ -7,6 +7,9 @@ import {
 } from 'class-validator';
 
 export class CreateDishesDto {
+  @IsArray()
+  files: Array<any>
+
   @IsString()
   name: string;
   
@@ -22,6 +25,7 @@ export class CreateDishesDto {
   @IsString()
   dishCategoriesId: string;
 
+  @IsOptional()
   @IsArray()
   @IsObject({ each: true })
   ingredients?: Array<{ id: string }>;
@@ -30,6 +34,7 @@ export class CreateDishesDto {
   @IsArray({ each: true })
   orderItems?: Array<{ id: string }>;
   
+  @IsOptional()
   @IsArray()
   @IsObject({ each: true })
   photos?: Array<{ id: string }>;

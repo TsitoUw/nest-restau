@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import PrismaService from 'src/prisma/prisma.service';
 import { CreateDishesDto, UpdateDishesDto } from './dto';
-import { PaginationDto, QueryDto } from 'src/common/dto';
+import { PaginationDto } from 'src/common/dto';
 import { PaginationHelper } from 'src/common/helpers';
 
 @Injectable()
@@ -9,7 +9,7 @@ export class DishesService {
   constructor(private prisma: PrismaService, private paginationHelper: PaginationHelper) {}
 
   async getOne(id: string) {
-    return await this.prisma.dishes.findUnique({ where: { id } });
+    return await this.prisma.dish.findUnique({ where: { id } });
   }
 
   async getAll(pagination: PaginationDto) {
@@ -19,7 +19,7 @@ export class DishesService {
     const take = this.paginationHelper.calculateTake(sanitizedPagination);
 
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.dishes.findMany({
+      this.prisma.dish.findMany({
         where: {
           name: {
             contains: pagination.filter,
@@ -32,7 +32,7 @@ export class DishesService {
         skip: skip,
         take: take,
       }),
-      this.prisma.dishes.count({
+      this.prisma.dish.count({
         where: {
           name: {
             contains: pagination.filter,
@@ -51,7 +51,7 @@ export class DishesService {
   }
 
   async create(data: CreateDishesDto) {
-    return await this.prisma.dishes.create({
+    return await this.prisma.dish.create({
       data: {
         name: data.name,
         description: data.description,
@@ -66,11 +66,11 @@ export class DishesService {
   }
 
   async delete(id: string) {
-    return await this.prisma.dishes.delete({ where: { id } });
+    return await this.prisma.dish.delete({ where: { id } });
   }
 
   async update(id: string, data: UpdateDishesDto) {
-    return await this.prisma.dishes.update({
+    return await this.prisma.dish.update({
       where: { id },
       data: {
         name: data.name,
